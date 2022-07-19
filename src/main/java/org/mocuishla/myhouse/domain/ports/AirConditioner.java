@@ -1,4 +1,4 @@
-package org.mocuishla.myhouse.domain;
+package org.mocuishla.myhouse.domain.ports;
 
 public interface AirConditioner {
     void switchOn();

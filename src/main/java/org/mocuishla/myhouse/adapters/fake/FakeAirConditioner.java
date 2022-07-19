@@ -1,6 +1,6 @@
 package org.mocuishla.myhouse.adapters.fake;
 
-import org.mocuishla.myhouse.domain.AirConditioner;
+import org.mocuishla.myhouse.domain.ports.AirConditioner;
 
 public class FakeAirConditioner implements AirConditioner {
 
