@@ -28,4 +28,25 @@ public class HouseTest {
 
         assertThat(actualHumidity).isEqualTo(40);
     }
+
+    @Test
+    public void shouldSwitchOnAirConditionerIfTempIsMoreThanThreshold(){
+        AirConditioner airConditioner = new FakeAirConditioner();
+        House sut = new House(airConditioner);
+
+        sut.setTemperature(30);
+
+        assertThat(airConditioner.isOn()).isTrue();
+    }
+
+    @Test
+    public void shouldNotSwitchOnAirConditionerIfTempIsLessThanThreshold(){
+        AirConditioner airConditioner = new FakeAirConditioner();
+        House sut = new House(airConditioner);
+
+        sut.setTemperature(25);
+
+        assertThat(airConditioner.isOn()).isFalse();
+    }
+
 }
