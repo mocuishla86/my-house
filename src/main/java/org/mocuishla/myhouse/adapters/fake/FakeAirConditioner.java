@@ -3,21 +3,25 @@ package org.mocuishla.myhouse.adapters.fake;
 import org.mocuishla.myhouse.domain.ports.AirConditioner;
 
 public class FakeAirConditioner implements AirConditioner {
+    private enum Status{
+        On,
+        Off,
+    }
 
-    private boolean state;
+    private Status state;
 
     @Override
     public void switchOn() {
-        this.state = true;
+        this.state = Status.On;
     }
 
     @Override
     public void switchOff() {
-        this.state = false;
+        this.state = Status.Off;
     }
 
     @Override
     public boolean isOn() {
-        return state;
+        return state == Status.On;
     }
 }
