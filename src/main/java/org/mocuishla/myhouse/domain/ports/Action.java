@@ -7,27 +7,22 @@ public class Action {
     private ActionType type;
     private double temperature;
 
-    public LocalDateTime getTimestamp() {
-        return timestamp;
+    public Action(LocalDateTime timestamp, ActionType type, double temperature) {
+        this.timestamp = timestamp;
+        this.type = type;
+        this.temperature = temperature;
     }
 
-    public void setTimestamp(LocalDateTime timestamp) {
-        this.timestamp = timestamp;
+    public LocalDateTime getTimestamp() {
+        return timestamp;
     }
 
     public ActionType getType() {
         return type;
     }
 
-    public void setType(ActionType type) {
-        this.type = type;
-    }
-
     public double getTemperature() {
         return temperature;
     }
 
-    public void setTemperature(double temperature) {
-        this.temperature = temperature;
-    }
 }
