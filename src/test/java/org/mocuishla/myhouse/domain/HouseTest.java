@@ -49,4 +49,15 @@ public class HouseTest {
         assertThat(airConditioner.isOn()).isFalse();
     }
 
+    @Test
+    public void shouldSwitchOffAirConditionerIfTempChangeToLowerTempThanThreshold(){
+        AirConditioner airConditioner = new FakeAirConditioner();
+        House sut = new House(airConditioner);
+        sut.setTemperature(34);
+
+        sut.setTemperature(21);
+
+        assertThat(airConditioner.isOn()).isFalse();
+    }
+
 }

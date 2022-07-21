@@ -17,6 +17,9 @@ public class House {
         if(temperature >= 30){
             airConditioner.switchOn();
         }
+        else{
+            airConditioner.switchOff();
+        }
     }
 
     public double getTemperature() {
