@@ -5,6 +5,7 @@ import org.mocuishla.myhouse.adapters.fake.FakeAirConditioner;
 import org.mocuishla.myhouse.domain.ports.AirConditioner;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatCode;
 
 public class HouseTest {
     @Test
@@ -58,6 +59,27 @@ public class HouseTest {
         sut.setTemperature(21);
 
         assertThat(airConditioner.isOn()).isFalse();
+    }
+
+    @Test
+    public void shouldNotSwitchOffAirConditionerIfTempChangeToGreaterTempThanThreshold(){
+        AirConditioner airConditioner = new FakeAirConditioner();
+        House sut = new House(airConditioner);
+        sut.setTemperature(34);
+
+        sut.setTemperature(23);
+
+        assertThat(airConditioner.isOn()).isTrue();
+    }
+
+    @Test
+    public void shouldNotSwitchAirConditionerOnIfItIsAlreadyOn(){
+        AirConditioner airConditioner = new FakeAirConditioner();
+        House sut = new House(airConditioner);
+        sut.setTemperature(34);
+
+        assertThatCode(() -> sut.setTemperature(33)).doesNotThrowAnyException();
+        assertThat(airConditioner.isOn()).isTrue();
     }
 
 }

@@ -14,10 +14,10 @@ public class House {
 
     public void setTemperature(double temperature) {
         this.temperature = temperature;
-        if(temperature >= 30){
+        if(temperature >= 30 && !airConditioner.isOn()){
             airConditioner.switchOn();
         }
-        else{
+        if (temperature <= 22){
             airConditioner.switchOff();
         }
     }
