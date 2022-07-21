@@ -12,6 +12,9 @@ public class FakeAirConditioner implements AirConditioner {
 
     @Override
     public void switchOn() {
+        if(isOn()){
+            throw new RuntimeException("Overheating");
+        }
         this.state = Status.On;
     }
 
