@@ -105,8 +105,25 @@ public class HouseTest {
 
         List<Action> allActions = actionRepository.getAllActions();
         assertThat(allActions).hasSize(1);
-        assertThat(allActions.get(0).getType()).isEqualTo(ActionType.TurnAirConditionerOn);
-        assertThat(allActions.get(0).getTemperature()).isEqualTo(34);
+        Action firstAction = allActions.get(0);
+        assertThat(firstAction.getType()).isEqualTo(ActionType.TurnAirConditionerOn);
+        assertThat(firstAction.getTemperature()).isEqualTo(34);
+    }
+
+    @Test
+    public void shouldSaveActionIntoRepositoryWhenACSwitchOff(){
+        AirConditioner airConditioner = new FakeAirConditioner();
+        ActionRepository actionRepository = new FakeActionRepository();
+        House sut = new House(airConditioner, actionRepository);
+
+        sut.setTemperature(34);
+        sut.setTemperature(20);
+
+        List<Action> allActions = actionRepository.getAllActions();
+        assertThat(allActions).hasSize(2);
+        Action secondAction = allActions.get(1);
+        assertThat(secondAction.getType()).isEqualTo(ActionType.TurnAirConditionerOff);
+        assertThat(secondAction.getTemperature()).isEqualTo(20);
     }
 
 }

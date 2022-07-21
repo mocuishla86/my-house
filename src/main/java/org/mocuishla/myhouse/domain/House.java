@@ -29,6 +29,9 @@ public class House {
         }
         if (temperature <= 22){
             airConditioner.switchOff();
+            this.actionRepository.saveAction(
+                    new Action(LocalDateTime.now(), ActionType.TurnAirConditionerOff, temperature)
+            );
         }
     }
 
