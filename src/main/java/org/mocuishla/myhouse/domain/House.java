@@ -28,7 +28,7 @@ public class House {
                     new Action(LocalDateTime.now(), ActionType.TurnAirConditionerOn, temperature)
             );
         }
-        if (temperature <= 22){
+        if (temperature <= 22 && airConditioner.isOn()){
             airConditioner.switchOff();
             this.actionRepository.saveAction(
                     new Action(LocalDateTime.now(), ActionType.TurnAirConditionerOff, temperature)

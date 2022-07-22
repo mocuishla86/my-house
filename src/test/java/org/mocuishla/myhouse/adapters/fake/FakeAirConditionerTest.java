@@ -45,4 +45,11 @@ class FakeAirConditionerTest {
         assertThatThrownBy(() -> sut.switchOn()).hasMessage("Overheating");
     }
 
+    @Test
+    public void shouldFailIfSwitchingOffWhenAlreadyOff() {
+        FakeAirConditioner sut = new FakeAirConditioner();
+
+        assertThatThrownBy(() -> sut.switchOff()).hasMessage("Already off");
+    }
+
 }

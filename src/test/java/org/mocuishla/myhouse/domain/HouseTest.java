@@ -96,6 +96,17 @@ public class HouseTest {
     }
 
     @Test
+    public void shouldNotSwitchAirConditionerOffIfItIsAlreadyOff(){
+        AirConditioner airConditioner = new FakeAirConditioner();
+        ActionRepository actionRepository = new FakeActionRepository();
+        House sut = new House(airConditioner, actionRepository);
+        sut.setTemperature(12);
+
+        assertThatCode(() -> sut.setTemperature(13)).doesNotThrowAnyException();
+        assertThat(airConditioner.isOn()).isFalse();
+    }
+
+    @Test
     public void shouldSaveActionIntoRepositoryWhenACSwitchOn(){
         AirConditioner airConditioner = new FakeAirConditioner();
         ActionRepository actionRepository = new FakeActionRepository();

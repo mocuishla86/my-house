@@ -20,6 +20,9 @@ public class FakeAirConditioner implements AirConditioner {
 
     @Override
     public void switchOff() {
+        if(!isOn()){
+            throw new RuntimeException("Already off");
+        }
         this.state = Status.Off;
     }
 
