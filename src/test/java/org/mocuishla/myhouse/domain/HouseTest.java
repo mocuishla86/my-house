@@ -103,7 +103,7 @@ public class HouseTest {
 
         sut.setTemperature(34);
 
-        List<Action> allActions = actionRepository.getAllActions();
+        List<Action> allActions = sut.getAllActions();
         assertThat(allActions).hasSize(1);
         Action firstAction = allActions.get(0);
         assertThat(firstAction.getType()).isEqualTo(ActionType.TurnAirConditionerOn);
@@ -119,7 +119,7 @@ public class HouseTest {
         sut.setTemperature(34);
         sut.setTemperature(20);
 
-        List<Action> allActions = actionRepository.getAllActions();
+        List<Action> allActions = sut.getAllActions();
         assertThat(allActions).hasSize(2);
         Action secondAction = allActions.get(1);
         assertThat(secondAction.getType()).isEqualTo(ActionType.TurnAirConditionerOff);

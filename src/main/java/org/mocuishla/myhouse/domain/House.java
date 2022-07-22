@@ -6,6 +6,7 @@ import org.mocuishla.myhouse.domain.ports.ActionType;
 import org.mocuishla.myhouse.domain.ports.AirConditioner;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class House {
 
@@ -45,5 +46,9 @@ public class House {
 
     public int getHumidity(){
         return humidity;
+    }
+
+    public List<Action> getAllActions(){
+        return actionRepository.getAllActions();
     }
 }
