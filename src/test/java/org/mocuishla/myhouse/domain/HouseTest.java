@@ -160,6 +160,27 @@ public class HouseTest {
         assertThat(airConditioner.isHumidifierOn()).isFalse();
     }
 
+    @Test
+    public void shouldNotSwitchHumidifierOnIfItIsAlreadyOn(){
+        AirConditioner airConditioner = new FakeAirConditioner();
+        ActionRepository actionRepository = new FakeActionRepository();
+        House sut = new House(airConditioner, actionRepository);
+        sut.setHumidity(26);
+
+        assertThatCode(() -> sut.setHumidity(28)).doesNotThrowAnyException();
+        assertThat(airConditioner.isHumidifierOn()).isTrue();
+    }
+
+    @Test
+    public void shouldNotSwitchHumidifierOffIfItIsAlreadyOff(){
+        AirConditioner airConditioner = new FakeAirConditioner();
+        ActionRepository actionRepository = new FakeActionRepository();
+        House sut = new House(airConditioner, actionRepository);
+        sut.setHumidity(34);
+
+        assertThatCode(() -> sut.setHumidity(33)).doesNotThrowAnyException();
+        assertThat(airConditioner.isHumidifierOn()).isFalse();
+    }
 
 
 }
