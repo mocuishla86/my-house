@@ -13,7 +13,7 @@ class FakeActionRepositoryTest {
     @Test
     public void shouldSaveAction() {
         FakeActionRepository sut = new FakeActionRepository();
-        Action action = new Action(LocalDateTime.now(), ActionType.TurnAirConditionerOff, 33);
+        Action action = new Action(LocalDateTime.now(), ActionType.TurnFreshAirOff, 33, 34);
 
         sut.saveAction(action);
         List<Action> actions = sut.getAllActions();
