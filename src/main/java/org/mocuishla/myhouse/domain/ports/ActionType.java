@@ -1,6 +1,8 @@
 package org.mocuishla.myhouse.domain.ports;
 
 public enum ActionType {
-    TurnAirConditionerOn,
-    TurnAirConditionerOff,
+    TurnFreshAirOn,
+    TurnFreshAirOff,
+    TurnHumidifierOn,
+    TurnHumidifierOff,
 }
