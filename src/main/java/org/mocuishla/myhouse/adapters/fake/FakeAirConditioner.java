@@ -32,6 +32,11 @@ public class FakeAirConditioner implements AirConditioner {
     }
 
     @Override
+    public void switchOffHumidifier(){
+        this.state = Status.Off;
+    }
+
+    @Override
     public boolean isOn() {
         return state == Status.On;
     }

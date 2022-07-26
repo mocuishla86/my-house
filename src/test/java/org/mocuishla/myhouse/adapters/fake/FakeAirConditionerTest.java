@@ -62,4 +62,14 @@ class FakeAirConditionerTest {
         assertThat(sut.isOn()).isTrue();
     }
 
+    @Test
+    public void shouldSwitchOffHumidifier(){
+        FakeAirConditioner sut = new FakeAirConditioner();
+        sut.switchOn();
+
+        sut.switchOffHumidifier();
+
+        assertThat(sut.isOn()).isFalse();
+    }
+
 }
