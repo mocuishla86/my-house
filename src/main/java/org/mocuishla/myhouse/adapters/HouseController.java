@@ -22,6 +22,11 @@ public class HouseController {
         house.setTemperature(temperatureDTO.getTemperature());
     }
 
+    @PostMapping("/humidity")
+    public void registerHumidity(@RequestBody HumidityDTO humidityDTO){
+        house.setHumidity(humidityDTO.getHumidity());
+    }
+
     @GetMapping("/actions")
     public List<Action> getActions(){
         return house.getAllActions();
