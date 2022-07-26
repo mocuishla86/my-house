@@ -22,14 +22,14 @@ public class House {
 
     public void setTemperature(double temperature) {
         this.temperature = temperature;
-        if(temperature >= 30 && !airConditioner.isOn()){
-            airConditioner.switchOn();
+        if(temperature >= 30 && !airConditioner.isFreshAirOn()){
+            airConditioner.switchOnFreshAir();
             this.actionRepository.saveAction(
                     new Action(LocalDateTime.now(), ActionType.TurnAirConditionerOn, temperature)
             );
         }
-        if (temperature <= 22 && airConditioner.isOn()){
-            airConditioner.switchOff();
+        if (temperature <= 22 && airConditioner.isFreshAirOn()){
+            airConditioner.switchOffFreshAir();
             this.actionRepository.saveAction(
                     new Action(LocalDateTime.now(), ActionType.TurnAirConditionerOff, temperature)
             );
@@ -42,10 +42,10 @@ public class House {
 
     public void setHumidity(int humidity){
         this.humidity = humidity;
-        if(humidity < 30 && !airConditioner.isOn()){
+        if(humidity < 30 && !airConditioner.isHumidifierOn()){
             airConditioner.switchOnHumidifier();
         }
-        if(humidity >= 30 && airConditioner.isOn()){
+        if(humidity >= 30 && airConditioner.isHumidifierOn()){
             airConditioner.switchOffHumidifier();
         }
     }

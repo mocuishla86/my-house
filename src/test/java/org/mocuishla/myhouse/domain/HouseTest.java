@@ -46,7 +46,7 @@ public class HouseTest {
 
         sut.setTemperature(30);
 
-        assertThat(airConditioner.isOn()).isTrue();
+        assertThat(airConditioner.isFreshAirOn()).isTrue();
     }
 
     @Test
@@ -57,7 +57,7 @@ public class HouseTest {
 
         sut.setTemperature(25);
 
-        assertThat(airConditioner.isOn()).isFalse();
+        assertThat(airConditioner.isFreshAirOn()).isFalse();
     }
 
     @Test
@@ -69,7 +69,7 @@ public class HouseTest {
 
         sut.setTemperature(21);
 
-        assertThat(airConditioner.isOn()).isFalse();
+        assertThat(airConditioner.isFreshAirOn()).isFalse();
     }
 
     @Test
@@ -81,7 +81,7 @@ public class HouseTest {
 
         sut.setTemperature(23);
 
-        assertThat(airConditioner.isOn()).isTrue();
+        assertThat(airConditioner.isFreshAirOn()).isTrue();
     }
 
     @Test
@@ -92,7 +92,7 @@ public class HouseTest {
         sut.setTemperature(34);
 
         assertThatCode(() -> sut.setTemperature(33)).doesNotThrowAnyException();
-        assertThat(airConditioner.isOn()).isTrue();
+        assertThat(airConditioner.isFreshAirOn()).isTrue();
     }
 
     @Test
@@ -103,7 +103,7 @@ public class HouseTest {
         sut.setTemperature(12);
 
         assertThatCode(() -> sut.setTemperature(13)).doesNotThrowAnyException();
-        assertThat(airConditioner.isOn()).isFalse();
+        assertThat(airConditioner.isFreshAirOn()).isFalse();
     }
 
     @Test
@@ -145,7 +145,7 @@ public class HouseTest {
 
         sut.setHumidity(29);
 
-        assertThat(airConditioner.isOn()).isTrue();
+        assertThat(airConditioner.isHumidifierOn()).isTrue();
     }
 
     @Test
@@ -157,7 +157,7 @@ public class HouseTest {
 
         sut.setHumidity(31);
 
-        assertThat(airConditioner.isOn()).isFalse();
+        assertThat(airConditioner.isHumidifierOn()).isFalse();
     }
 
 
