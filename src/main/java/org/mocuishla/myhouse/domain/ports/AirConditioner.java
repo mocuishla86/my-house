@@ -1,9 +1,10 @@
 package org.mocuishla.myhouse.domain.ports;
 
 public interface AirConditioner {
-    void switchOn();
-    void switchOff();
+    void switchOnFreshAir();
+    void switchOffFreshAir();
     void switchOnHumidifier();
     void switchOffHumidifier();
-    boolean isOn();
+    boolean isFreshAirOn();
+    boolean isHumidifierOn();
 }
