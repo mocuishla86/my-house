@@ -137,4 +137,29 @@ public class HouseTest {
         assertThat(secondAction.getTemperature()).isEqualTo(20);
     }
 
+    @Test
+    public void shouldSwitchOnHumidifierWhenHumidityIsUnder30(){
+        AirConditioner airConditioner = new FakeAirConditioner();
+        ActionRepository actionRepository = new FakeActionRepository();
+        House sut = new House(airConditioner, actionRepository);
+
+        sut.setHumidity(29);
+
+        assertThat(airConditioner.isOn()).isTrue();
+    }
+
+    @Test
+    public void shouldSwitchOffHumidifierWhenHumidityIsAbove30(){
+        AirConditioner airConditioner = new FakeAirConditioner();
+        ActionRepository actionRepository = new FakeActionRepository();
+        House sut = new House(airConditioner, actionRepository);
+        sut.setHumidity(29);
+
+        sut.setHumidity(31);
+
+        assertThat(airConditioner.isOn()).isFalse();
+    }
+
+
+
 }

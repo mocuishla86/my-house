@@ -42,6 +42,12 @@ public class House {
 
     public void setHumidity(int humidity){
         this.humidity = humidity;
+        if(humidity < 30 && !airConditioner.isOn()){
+            airConditioner.switchOn();
+        }
+        if(humidity >= 30 && airConditioner.isOn()){
+            airConditioner.switchOff();
+        }
     }
 
     public int getHumidity(){
