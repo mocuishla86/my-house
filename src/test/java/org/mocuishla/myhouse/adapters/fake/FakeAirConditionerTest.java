@@ -5,72 +5,79 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.*;
 
 class FakeAirConditionerTest {
 
     @Test
-    public void shoulBeOffAtFirst() {
+    public void shouldBeOffAtFirst() {
         FakeAirConditioner sut = new FakeAirConditioner();
 
-        boolean actualIsOn = sut.isOn();
+        boolean actualFreshAirIsOn = sut.isFreshAirOn();
+        boolean actualHumidityIsOn = sut.isHumidifierOn();
 
-        assertThat(actualIsOn).isFalse();
+        assertThat(actualFreshAirIsOn).isFalse();
+        assertThat(actualHumidityIsOn).isFalse();
     }
 
     @Test
-    public void shouldTurnOn() {
+    public void shouldTurnOnFreshAir() {
         FakeAirConditioner sut = new FakeAirConditioner();
 
-        sut.switchOn();
+        sut.switchOnFreshAir();
 
-        assertThat(sut.isOn()).isTrue();
+        assertThat(sut.isFreshAirOn()).isTrue();
     }
 
     @Test
-    public void shouldTurnOff() {
+    public void shouldTurnOffFreshAir() {
         FakeAirConditioner sut = new FakeAirConditioner();
-        sut.switchOn();
+        sut.switchOnFreshAir();
 
-        sut.switchOff();
+        sut.switchOffFreshAir();
 
-        assertThat(sut.isOn()).isFalse();
+        assertThat(sut.isFreshAirOn()).isFalse();
     }
 
     @Test
     public void shouldFailIfSwitchingOnWhenAlreadyOn() {
         FakeAirConditioner sut = new FakeAirConditioner();
-        sut.switchOn();
+        sut.switchOnFreshAir();
 
-        assertThatThrownBy(() -> sut.switchOn()).hasMessage("Overheating");
+        assertThatThrownBy(() -> sut.switchOnFreshAir()).hasMessage("Overheating");
     }
 
     @Test
     public void shouldFailIfSwitchingOffWhenAlreadyOff() {
         FakeAirConditioner sut = new FakeAirConditioner();
 
-        assertThatThrownBy(() -> sut.switchOff()).hasMessage("Already off");
+        assertThatThrownBy(() -> sut.switchOffFreshAir()).hasMessage("Already off");
     }
 
     @Test
     public void shouldSwitchOnHumidifier(){
         FakeAirConditioner sut = new FakeAirConditioner();
-        sut.switchOn();
 
         sut.switchOnHumidifier();
 
-        assertThat(sut.isOn()).isTrue();
+        assertThat(sut.isHumidifierOn()).isTrue();
     }
 
     @Test
     public void shouldSwitchOffHumidifier(){
         FakeAirConditioner sut = new FakeAirConditioner();
-        sut.switchOn();
         sut.switchOnHumidifier();
 
         sut.switchOffHumidifier();
 
-        assertThat(sut.isOn()).isFalse();
+        assertThat(sut.isHumidifierOn()).isFalse();
     }
 
+    @Test
+    public void checkIfFreshAirIsStillOnIfWeSwitchOnTheHumidifier(){
+        FakeAirConditioner sut = new FakeAirConditioner();
+        sut.switchOnFreshAir();
+        sut.switchOnHumidifier();
+
+        assertThat(sut.isFreshAirOn()).isTrue();
+    }
 }
