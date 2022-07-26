@@ -3,41 +3,52 @@ package org.mocuishla.myhouse.adapters.fake;
 import org.mocuishla.myhouse.domain.ports.AirConditioner;
 
 public class FakeAirConditioner implements AirConditioner {
-    private enum Status{
-        On,
-        Off,
+    private enum AirStatus{
+        AirOn,
+        AirOff,
     }
 
-    private Status state;
+    private enum HumidifierStatus{
+        HumidifierOn,
+        HumidifierOff,
+    }
+
+    private AirStatus airStatus;
+    private HumidifierStatus humidifierStatus;
 
     @Override
-    public void switchOn() {
-        if(isOn()){
+    public void switchOnFreshAir() {
+        if(isFreshAirOn()){
             throw new RuntimeException("Overheating");
         }
-        this.state = Status.On;
+        this.airStatus = AirStatus.AirOn;
     }
 
     @Override
-    public void switchOff() {
-        if(!isOn()){
+    public void switchOffFreshAir() {
+        if(!isFreshAirOn()){
             throw new RuntimeException("Already off");
         }
-        this.state = Status.Off;
+        this.airStatus = AirStatus.AirOff;
     }
 
     @Override
     public void switchOnHumidifier(){
-        this.state = Status.On;
+        this.humidifierStatus = HumidifierStatus.HumidifierOn;
     }
 
     @Override
     public void switchOffHumidifier(){
-        this.state = Status.Off;
+        this.humidifierStatus = HumidifierStatus.HumidifierOff;
     }
 
     @Override
-    public boolean isOn() {
-        return state == Status.On;
+    public boolean isFreshAirOn() {
+        return airStatus == AirStatus.AirOn;
+    }
+
+    @Override
+    public boolean isHumidifierOn(){
+        return humidifierStatus == HumidifierStatus.HumidifierOn;
     }
 }
