@@ -34,11 +34,17 @@ public class FakeAirConditioner implements AirConditioner {
 
     @Override
     public void switchOnHumidifier(){
+        if(isHumidifierOn()){
+            throw new RuntimeException("Humidifier Already On");
+        }
         this.humidifierStatus = HumidifierStatus.HumidifierOn;
     }
 
     @Override
     public void switchOffHumidifier(){
+        if(!isHumidifierOn()){
+            throw new RuntimeException("Humidifier Already Off");
+        }
         this.humidifierStatus = HumidifierStatus.HumidifierOff;
     }
 

@@ -39,7 +39,7 @@ class FakeAirConditionerTest {
     }
 
     @Test
-    public void shouldFailIfSwitchingOnWhenAlreadyOn() {
+    public void shouldFailIfSwitchingFreshAirOnWhenAlreadyOn() {
         FakeAirConditioner sut = new FakeAirConditioner();
         sut.switchOnFreshAir();
 
@@ -47,7 +47,7 @@ class FakeAirConditionerTest {
     }
 
     @Test
-    public void shouldFailIfSwitchingOffWhenAlreadyOff() {
+    public void shouldFailIfSwitchingFreshAirOffWhenAlreadyOff() {
         FakeAirConditioner sut = new FakeAirConditioner();
 
         assertThatThrownBy(() -> sut.switchOffFreshAir()).hasMessage("Already off");
@@ -79,5 +79,23 @@ class FakeAirConditionerTest {
         sut.switchOnHumidifier();
 
         assertThat(sut.isFreshAirOn()).isTrue();
+    }
+
+    @Test
+    public void shouldFailIfSwitchingHumidifierOnWhenAlreadyOn() {
+        FakeAirConditioner sut = new FakeAirConditioner();
+        sut.switchOnHumidifier();
+
+        assertThatThrownBy(() -> sut.switchOnHumidifier()).hasMessage("Humidifier Already On");
+    }
+
+    @Test
+    public void shouldFailIfSwitchingHumidifierOffWhenAlreadyOff(){
+        FakeAirConditioner sut = new FakeAirConditioner();
+        sut.switchOnHumidifier();
+
+        sut.switchOffHumidifier();
+
+        assertThatThrownBy(() -> sut.switchOffHumidifier()).hasMessage("Humidifier Already Off");
     }
 }
