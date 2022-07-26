@@ -107,7 +107,7 @@ public class HouseTest {
     }
 
     @Test
-    public void shouldSaveActionIntoRepositoryWhenACSwitchOn(){
+    public void shouldSaveActionIntoRepositoryWhenFreshAirSwitchOn(){
         AirConditioner airConditioner = new FakeAirConditioner();
         ActionRepository actionRepository = new FakeActionRepository();
         House sut = new House(airConditioner, actionRepository);
@@ -122,7 +122,7 @@ public class HouseTest {
     }
 
     @Test
-    public void shouldSaveActionIntoRepositoryWhenACSwitchOff(){
+    public void shouldSaveActionIntoRepositoryWhenFreshAirSwitchOff(){
         AirConditioner airConditioner = new FakeAirConditioner();
         ActionRepository actionRepository = new FakeActionRepository();
         House sut = new House(airConditioner, actionRepository);
@@ -182,5 +182,35 @@ public class HouseTest {
         assertThat(airConditioner.isHumidifierOn()).isFalse();
     }
 
+    @Test
+    public void shouldSaveActionIntoRepositoryWhenHumidifierSwitchOn(){
+        AirConditioner airConditioner = new FakeAirConditioner();
+        ActionRepository actionRepository = new FakeActionRepository();
+        House sut = new House(airConditioner, actionRepository);
+
+        sut.setHumidity(27);
+
+        List<Action> allActions = sut.getAllActions();
+        assertThat(allActions).hasSize(1);
+        Action firstAction = allActions.get(0);
+        assertThat(firstAction.getType()).isEqualTo(ActionType.TurnHumidifierOn);
+        assertThat(firstAction.getHumidity()).isEqualTo(27);
+    }
+
+    @Test
+    public void shouldSaveActionIntoRepositoryWhenHumidifierSwitchOff(){
+        AirConditioner airConditioner = new FakeAirConditioner();
+        ActionRepository actionRepository = new FakeActionRepository();
+        House sut = new House(airConditioner, actionRepository);
+
+        sut.setHumidity(27);
+        sut.setHumidity(31);
+
+        List<Action> allActions = sut.getAllActions();
+        assertThat(allActions).hasSize(2);
+        Action secondAction = allActions.get(1);
+        assertThat(secondAction.getType()).isEqualTo(ActionType.TurnHumidifierOff);
+        assertThat(secondAction.getHumidity()).isEqualTo(31);
+    }
 
 }

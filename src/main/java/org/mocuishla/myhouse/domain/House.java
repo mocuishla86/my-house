@@ -44,9 +44,13 @@ public class House {
         this.humidity = humidity;
         if(humidity < 30 && !airConditioner.isHumidifierOn()){
             airConditioner.switchOnHumidifier();
+            this.actionRepository.saveAction(
+                    new Action(LocalDateTime.now(), ActionType.TurnHumidifierOn, temperature, humidity));
         }
         if(humidity >= 30 && airConditioner.isHumidifierOn()){
             airConditioner.switchOffHumidifier();
+            this.actionRepository.saveAction(
+                    new Action(LocalDateTime.now(), ActionType.TurnHumidifierOff, temperature, humidity));
         }
     }
 
