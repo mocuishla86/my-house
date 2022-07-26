@@ -66,6 +66,7 @@ class FakeAirConditionerTest {
     public void shouldSwitchOffHumidifier(){
         FakeAirConditioner sut = new FakeAirConditioner();
         sut.switchOn();
+        sut.switchOnHumidifier();
 
         sut.switchOffHumidifier();
 
