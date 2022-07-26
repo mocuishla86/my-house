@@ -25,13 +25,13 @@ public class House {
         if(temperature >= 30 && !airConditioner.isFreshAirOn()){
             airConditioner.switchOnFreshAir();
             this.actionRepository.saveAction(
-                    new Action(LocalDateTime.now(), ActionType.TurnAirConditionerOn, temperature)
+                    new Action(LocalDateTime.now(), ActionType.TurnFreshAirOn, temperature, humidity)
             );
         }
         if (temperature <= 22 && airConditioner.isFreshAirOn()){
             airConditioner.switchOffFreshAir();
             this.actionRepository.saveAction(
-                    new Action(LocalDateTime.now(), ActionType.TurnAirConditionerOff, temperature)
+                    new Action(LocalDateTime.now(), ActionType.TurnFreshAirOff, temperature, humidity)
             );
         }
     }
