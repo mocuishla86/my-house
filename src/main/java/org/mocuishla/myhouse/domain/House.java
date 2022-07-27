@@ -10,11 +10,10 @@ import java.util.List;
 
 public class House {
 
-    //private double temperature;
-    //private int humidity;
     private HouseState houseState = new HouseState();
     private AirConditioner airConditioner;
     private ActionRepository actionRepository;
+    private HouseStateListener houseStateListener = new PrintHouseStateListener();
 
     public House(AirConditioner airConditioner, ActionRepository actionRepository) {
         this.airConditioner = airConditioner;
@@ -23,7 +22,7 @@ public class House {
 
     public void setTemperature(double temperature) {
         this.houseState.setTemperature(temperature);
-        //this.temperature = temperature;
+        this.houseStateListener.onStateChanged(houseState);
         if(temperature >= 30 && !airConditioner.isFreshAirOn()){
             airConditioner.switchOnFreshAir();
             this.actionRepository.saveAction(
@@ -44,6 +43,7 @@ public class House {
 
     public void setHumidity(int humidity){
         this.houseState.setHumidity(humidity);
+        this.houseStateListener.onStateChanged(houseState);
         if(humidity < 30 && !airConditioner.isHumidifierOn()){
             airConditioner.switchOnHumidifier();
             this.actionRepository.saveAction(
