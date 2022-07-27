@@ -14,27 +14,18 @@ public class House {
     private AirConditioner airConditioner;
     private ActionRepository actionRepository;
     private HouseStateListener houseStateListener = new PrintHouseStateListener();
+    private FreshAirListener freshAirListener;
 
     public House(AirConditioner airConditioner, ActionRepository actionRepository) {
         this.airConditioner = airConditioner;
         this.actionRepository = actionRepository;
+        freshAirListener = new FreshAirListener(airConditioner, actionRepository);
     }
 
     public void setTemperature(double temperature) {
         this.houseState.setTemperature(temperature);
         this.houseStateListener.onStateChanged(houseState);
-        if(temperature >= 30 && !airConditioner.isFreshAirOn()){
-            airConditioner.switchOnFreshAir();
-            this.actionRepository.saveAction(
-                    new Action(LocalDateTime.now(), ActionType.TurnFreshAirOn, temperature, houseState.getHumidity())
-            );
-        }
-        if (temperature <= 22 && airConditioner.isFreshAirOn()){
-            airConditioner.switchOffFreshAir();
-            this.actionRepository.saveAction(
-                    new Action(LocalDateTime.now(), ActionType.TurnFreshAirOff, temperature, houseState.getHumidity())
-            );
-        }
+        this.freshAirListener.onStateChanged(houseState);
     }
 
     public double getTemperature() {
@@ -44,6 +35,7 @@ public class House {
     public void setHumidity(int humidity){
         this.houseState.setHumidity(humidity);
         this.houseStateListener.onStateChanged(houseState);
+        this.freshAirListener.onStateChanged(houseState);
         if(humidity < 30 && !airConditioner.isHumidifierOn()){
             airConditioner.switchOnHumidifier();
             this.actionRepository.saveAction(
