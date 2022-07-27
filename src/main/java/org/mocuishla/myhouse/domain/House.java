@@ -10,8 +10,9 @@ import java.util.List;
 
 public class House {
 
-    private double temperature;
-    private int humidity;
+    //private double temperature;
+    //private int humidity;
+    private HouseState houseState = new HouseState();
     private AirConditioner airConditioner;
     private ActionRepository actionRepository;
 
@@ -21,41 +22,42 @@ public class House {
     }
 
     public void setTemperature(double temperature) {
-        this.temperature = temperature;
+        this.houseState.setTemperature(temperature);
+        //this.temperature = temperature;
         if(temperature >= 30 && !airConditioner.isFreshAirOn()){
             airConditioner.switchOnFreshAir();
             this.actionRepository.saveAction(
-                    new Action(LocalDateTime.now(), ActionType.TurnFreshAirOn, temperature, humidity)
+                    new Action(LocalDateTime.now(), ActionType.TurnFreshAirOn, temperature, houseState.getHumidity())
             );
         }
         if (temperature <= 22 && airConditioner.isFreshAirOn()){
             airConditioner.switchOffFreshAir();
             this.actionRepository.saveAction(
-                    new Action(LocalDateTime.now(), ActionType.TurnFreshAirOff, temperature, humidity)
+                    new Action(LocalDateTime.now(), ActionType.TurnFreshAirOff, temperature, houseState.getHumidity())
             );
         }
     }
 
     public double getTemperature() {
-        return temperature;
+        return houseState.getTemperature();
     }
 
     public void setHumidity(int humidity){
-        this.humidity = humidity;
+        this.houseState.setHumidity(humidity);
         if(humidity < 30 && !airConditioner.isHumidifierOn()){
             airConditioner.switchOnHumidifier();
             this.actionRepository.saveAction(
-                    new Action(LocalDateTime.now(), ActionType.TurnHumidifierOn, temperature, humidity));
+                    new Action(LocalDateTime.now(), ActionType.TurnHumidifierOn, houseState.getTemperature(), humidity));
         }
         if(humidity >= 30 && airConditioner.isHumidifierOn()){
             airConditioner.switchOffHumidifier();
             this.actionRepository.saveAction(
-                    new Action(LocalDateTime.now(), ActionType.TurnHumidifierOff, temperature, humidity));
+                    new Action(LocalDateTime.now(), ActionType.TurnHumidifierOff, houseState.getTemperature(), humidity));
         }
     }
 
     public int getHumidity(){
-        return humidity;
+        return houseState.getHumidity();
     }
 
     public List<Action> getAllActions(){
