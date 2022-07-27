@@ -1,6 +1,6 @@
 package org.mocuishla.myhouse.domain;
 
-public class PrintHouseInfo implements HouseStateListener{
+public class PrintHouseStateListener implements HouseStateListener{
     @Override
     public void onStateChanged(HouseState newState){
         double temperature = newState.getTemperature();
