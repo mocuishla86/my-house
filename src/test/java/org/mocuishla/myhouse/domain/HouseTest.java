@@ -111,6 +111,7 @@ public class HouseTest {
         AirConditioner airConditioner = new FakeAirConditioner();
         ActionRepository actionRepository = new FakeActionRepository();
         House sut = new House(airConditioner, actionRepository);
+        sut.setHumidity(40);
 
         sut.setTemperature(34);
 
@@ -126,6 +127,7 @@ public class HouseTest {
         AirConditioner airConditioner = new FakeAirConditioner();
         ActionRepository actionRepository = new FakeActionRepository();
         House sut = new House(airConditioner, actionRepository);
+        sut.setHumidity(40);
 
         sut.setTemperature(34);
         sut.setTemperature(20);

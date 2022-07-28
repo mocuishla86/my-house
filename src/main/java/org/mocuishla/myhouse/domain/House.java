@@ -28,7 +28,7 @@ public class House {
         this.houseState.setTemperature(temperature);
         this.houseStateListener.onStateChanged(houseState);
         this.freshAirListener.onStateChanged(houseState);
-        //this.humidifierListener.onStateChanged(houseState);
+        this.humidifierListener.onStateChanged(houseState);
     }
 
     public double getTemperature() {
