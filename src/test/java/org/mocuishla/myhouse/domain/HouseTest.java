@@ -18,7 +18,10 @@ public class HouseTest {
     public void shouldSetTemperature(){
         AirConditioner airConditioner = new FakeAirConditioner();
         ActionRepository actionRepository = new FakeActionRepository();
-        House sut = new House(airConditioner, actionRepository);
+        House sut = new House(airConditioner, actionRepository, List.of(
+                new HumidifierListener(airConditioner, actionRepository),
+                new FreshAirListener(airConditioner, actionRepository),
+                new PrintHouseStateListener()));
 
         sut.setTemperature(36.3);
         double actualTemperature = sut.getTemperature();
@@ -30,7 +33,10 @@ public class HouseTest {
     public void shouldGetHumidity(){
         AirConditioner airConditioner = new FakeAirConditioner();
         ActionRepository actionRepository = new FakeActionRepository();
-        House sut = new House(airConditioner, actionRepository);
+        House sut = new House(airConditioner, actionRepository, List.of(
+                new HumidifierListener(airConditioner, actionRepository),
+                new FreshAirListener(airConditioner, actionRepository),
+                new PrintHouseStateListener()));
 
         sut.setHumidity(40);
         int actualHumidity = sut.getHumidity();
@@ -42,7 +48,10 @@ public class HouseTest {
     public void shouldSwitchOnAirConditionerIfTempIsMoreThanThreshold(){
         AirConditioner airConditioner = new FakeAirConditioner();
         ActionRepository actionRepository = new FakeActionRepository();
-        House sut = new House(airConditioner, actionRepository);
+        House sut = new House(airConditioner, actionRepository, List.of(
+                new HumidifierListener(airConditioner, actionRepository),
+                new FreshAirListener(airConditioner, actionRepository),
+                new PrintHouseStateListener()));
 
         sut.setTemperature(30);
 
@@ -53,7 +62,10 @@ public class HouseTest {
     public void shouldNotSwitchOnAirConditionerIfTempIsLessThanThreshold(){
         AirConditioner airConditioner = new FakeAirConditioner();
         ActionRepository actionRepository = new FakeActionRepository();
-        House sut = new House(airConditioner, actionRepository);
+        House sut = new House(airConditioner, actionRepository, List.of(
+                new HumidifierListener(airConditioner, actionRepository),
+                new FreshAirListener(airConditioner, actionRepository),
+                new PrintHouseStateListener()));
 
         sut.setTemperature(25);
 
@@ -64,7 +76,10 @@ public class HouseTest {
     public void shouldSwitchOffAirConditionerIfTempChangeToLowerTempThanThreshold(){
         AirConditioner airConditioner = new FakeAirConditioner();
         ActionRepository actionRepository = new FakeActionRepository();
-        House sut = new House(airConditioner, actionRepository);
+        House sut = new House(airConditioner, actionRepository, List.of(
+                new HumidifierListener(airConditioner, actionRepository),
+                new FreshAirListener(airConditioner, actionRepository),
+                new PrintHouseStateListener()));
         sut.setTemperature(34);
 
         sut.setTemperature(21);
@@ -76,7 +91,10 @@ public class HouseTest {
     public void shouldNotSwitchOffAirConditionerIfTempChangeToGreaterTempThanThreshold(){
         AirConditioner airConditioner = new FakeAirConditioner();
         ActionRepository actionRepository = new FakeActionRepository();
-        House sut = new House(airConditioner, actionRepository);
+        House sut = new House(airConditioner, actionRepository, List.of(
+                new HumidifierListener(airConditioner, actionRepository),
+                new FreshAirListener(airConditioner, actionRepository),
+                new PrintHouseStateListener()));
         sut.setTemperature(34);
 
         sut.setTemperature(23);
@@ -88,7 +106,10 @@ public class HouseTest {
     public void shouldNotSwitchAirConditionerOnIfItIsAlreadyOn(){
         AirConditioner airConditioner = new FakeAirConditioner();
         ActionRepository actionRepository = new FakeActionRepository();
-        House sut = new House(airConditioner, actionRepository);
+        House sut = new House(airConditioner, actionRepository, List.of(
+                new HumidifierListener(airConditioner, actionRepository),
+                new FreshAirListener(airConditioner, actionRepository),
+                new PrintHouseStateListener()));
         sut.setTemperature(34);
 
         assertThatCode(() -> sut.setTemperature(33)).doesNotThrowAnyException();
@@ -99,7 +120,10 @@ public class HouseTest {
     public void shouldNotSwitchAirConditionerOffIfItIsAlreadyOff(){
         AirConditioner airConditioner = new FakeAirConditioner();
         ActionRepository actionRepository = new FakeActionRepository();
-        House sut = new House(airConditioner, actionRepository);
+        House sut = new House(airConditioner, actionRepository, List.of(
+                new HumidifierListener(airConditioner, actionRepository),
+                new FreshAirListener(airConditioner, actionRepository),
+                new PrintHouseStateListener()));
         sut.setTemperature(12);
 
         assertThatCode(() -> sut.setTemperature(13)).doesNotThrowAnyException();
@@ -110,7 +134,10 @@ public class HouseTest {
     public void shouldSaveActionIntoRepositoryWhenFreshAirSwitchOn(){
         AirConditioner airConditioner = new FakeAirConditioner();
         ActionRepository actionRepository = new FakeActionRepository();
-        House sut = new House(airConditioner, actionRepository);
+        House sut = new House(airConditioner, actionRepository, List.of(
+                new HumidifierListener(airConditioner, actionRepository),
+                new FreshAirListener(airConditioner, actionRepository),
+                new PrintHouseStateListener()));
         sut.setHumidity(40);
 
         sut.setTemperature(34);
@@ -126,7 +153,10 @@ public class HouseTest {
     public void shouldSaveActionIntoRepositoryWhenFreshAirSwitchOff(){
         AirConditioner airConditioner = new FakeAirConditioner();
         ActionRepository actionRepository = new FakeActionRepository();
-        House sut = new House(airConditioner, actionRepository);
+        House sut = new House(airConditioner, actionRepository, List.of(
+                new HumidifierListener(airConditioner, actionRepository),
+                new FreshAirListener(airConditioner, actionRepository),
+                new PrintHouseStateListener()));
         sut.setHumidity(40);
 
         sut.setTemperature(34);
@@ -143,7 +173,10 @@ public class HouseTest {
     public void shouldSwitchOnHumidifierWhenHumidityIsUnder30(){
         AirConditioner airConditioner = new FakeAirConditioner();
         ActionRepository actionRepository = new FakeActionRepository();
-        House sut = new House(airConditioner, actionRepository);
+        House sut = new House(airConditioner, actionRepository, List.of(
+                new HumidifierListener(airConditioner, actionRepository),
+                new FreshAirListener(airConditioner, actionRepository),
+                new PrintHouseStateListener()));
 
         sut.setHumidity(29);
 
@@ -154,7 +187,10 @@ public class HouseTest {
     public void shouldSwitchOffHumidifierWhenHumidityIsAbove30(){
         AirConditioner airConditioner = new FakeAirConditioner();
         ActionRepository actionRepository = new FakeActionRepository();
-        House sut = new House(airConditioner, actionRepository);
+        House sut = new House(airConditioner, actionRepository, List.of(
+                new HumidifierListener(airConditioner, actionRepository),
+                new FreshAirListener(airConditioner, actionRepository),
+                new PrintHouseStateListener()));
         sut.setHumidity(29);
 
         sut.setHumidity(31);
@@ -166,7 +202,10 @@ public class HouseTest {
     public void shouldNotSwitchHumidifierOnIfItIsAlreadyOn(){
         AirConditioner airConditioner = new FakeAirConditioner();
         ActionRepository actionRepository = new FakeActionRepository();
-        House sut = new House(airConditioner, actionRepository);
+        House sut = new House(airConditioner, actionRepository, List.of(
+                new HumidifierListener(airConditioner, actionRepository),
+                new FreshAirListener(airConditioner, actionRepository),
+                new PrintHouseStateListener()));
         sut.setHumidity(26);
 
         assertThatCode(() -> sut.setHumidity(28)).doesNotThrowAnyException();
@@ -177,7 +216,10 @@ public class HouseTest {
     public void shouldNotSwitchHumidifierOffIfItIsAlreadyOff(){
         AirConditioner airConditioner = new FakeAirConditioner();
         ActionRepository actionRepository = new FakeActionRepository();
-        House sut = new House(airConditioner, actionRepository);
+        House sut = new House(airConditioner, actionRepository, List.of(
+                new HumidifierListener(airConditioner, actionRepository),
+                new FreshAirListener(airConditioner, actionRepository),
+                new PrintHouseStateListener()));
         sut.setHumidity(34);
 
         assertThatCode(() -> sut.setHumidity(33)).doesNotThrowAnyException();
@@ -188,7 +230,10 @@ public class HouseTest {
     public void shouldSaveActionIntoRepositoryWhenHumidifierSwitchOn(){
         AirConditioner airConditioner = new FakeAirConditioner();
         ActionRepository actionRepository = new FakeActionRepository();
-        House sut = new House(airConditioner, actionRepository);
+        House sut = new House(airConditioner, actionRepository, List.of(
+                new HumidifierListener(airConditioner, actionRepository),
+                new FreshAirListener(airConditioner, actionRepository),
+                new PrintHouseStateListener()));
 
         sut.setHumidity(27);
 
@@ -203,7 +248,10 @@ public class HouseTest {
     public void shouldSaveActionIntoRepositoryWhenHumidifierSwitchOff(){
         AirConditioner airConditioner = new FakeAirConditioner();
         ActionRepository actionRepository = new FakeActionRepository();
-        House sut = new House(airConditioner, actionRepository);
+        House sut = new House(airConditioner, actionRepository, List.of(
+                new HumidifierListener(airConditioner, actionRepository),
+                new FreshAirListener(airConditioner, actionRepository),
+                new PrintHouseStateListener()));
 
         sut.setHumidity(27);
         sut.setHumidity(31);

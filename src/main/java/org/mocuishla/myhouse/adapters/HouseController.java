@@ -2,7 +2,10 @@ package org.mocuishla.myhouse.adapters;
 
 import org.mocuishla.myhouse.adapters.fake.FakeActionRepository;
 import org.mocuishla.myhouse.adapters.fake.FakeAirConditioner;
+import org.mocuishla.myhouse.domain.FreshAirListener;
 import org.mocuishla.myhouse.domain.House;
+import org.mocuishla.myhouse.domain.HumidifierListener;
+import org.mocuishla.myhouse.domain.PrintHouseStateListener;
 import org.mocuishla.myhouse.domain.ports.Action;
 import org.mocuishla.myhouse.domain.ports.AirConditioner;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +18,12 @@ import java.util.List;
 @RestController
 public class HouseController {
 
-    private House house = new House(new FakeAirConditioner(), new FakeActionRepository());
+    FakeAirConditioner fakeAirConditioner = new FakeAirConditioner();
+    FakeActionRepository fakeActionRepository = new FakeActionRepository();
+    private House house = new House(fakeAirConditioner, fakeActionRepository, List.of(
+            new HumidifierListener(fakeAirConditioner, fakeActionRepository),
+            new FreshAirListener(fakeAirConditioner, fakeActionRepository),
+            new PrintHouseStateListener()));
 
     @PostMapping("/temperature")
     public void registerTemperature(@RequestBody TemperatureDTO temperatureDTO){

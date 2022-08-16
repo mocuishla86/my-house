@@ -15,14 +15,10 @@ public class House {
     private ActionRepository actionRepository;
     private List<HouseStateListener> houseStateListeners;
 
-    public House(AirConditioner airConditioner, ActionRepository actionRepository) {
+    public House(AirConditioner airConditioner, ActionRepository actionRepository, List<HouseStateListener> houseStateListeners) {
         this.airConditioner = airConditioner;
         this.actionRepository = actionRepository;
-        this.houseStateListeners = List.of(
-                new HumidifierListener(airConditioner, actionRepository),
-                new FreshAirListener(airConditioner, actionRepository),
-                new PrintHouseStateListener()
-        );
+        this.houseStateListeners = houseStateListeners;
     }
 
     public void setTemperature(double temperature) {
