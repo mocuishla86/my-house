@@ -14,8 +14,8 @@ public class House {
     private AirConditioner airConditioner;
     private ActionRepository actionRepository;
     private HouseStateListener houseStateListener;
-    private FreshAirListener freshAirListener;
-    private HumidifierListener humidifierListener;
+    private HouseStateListener freshAirListener;
+    private HouseStateListener humidifierListener;
 
     public House(AirConditioner airConditioner, ActionRepository actionRepository) {
         this.airConditioner = airConditioner;
