@@ -13,23 +13,21 @@ public class House {
     private HouseState houseState = new HouseState();
     private AirConditioner airConditioner;
     private ActionRepository actionRepository;
-    private HouseStateListener houseStateListener;
-    private HouseStateListener freshAirListener;
-    private HouseStateListener humidifierListener;
+    private List<HouseStateListener> houseStateListeners;
 
     public House(AirConditioner airConditioner, ActionRepository actionRepository) {
         this.airConditioner = airConditioner;
         this.actionRepository = actionRepository;
-        humidifierListener = new HumidifierListener(airConditioner, actionRepository);
-        freshAirListener = new FreshAirListener(airConditioner, actionRepository);
-        houseStateListener = new PrintHouseStateListener();
+        this.houseStateListeners = List.of(
+                new HumidifierListener(airConditioner, actionRepository),
+                new FreshAirListener(airConditioner, actionRepository),
+                new PrintHouseStateListener()
+        );
     }
 
     public void setTemperature(double temperature) {
         this.houseState.setTemperature(temperature);
-        this.houseStateListener.onStateChanged(houseState);
-        this.freshAirListener.onStateChanged(houseState);
-        this.humidifierListener.onStateChanged(houseState);
+        this.houseStateListeners.forEach(listener -> listener.onStateChanged(houseState));
     }
 
     public double getTemperature() {
@@ -38,10 +36,7 @@ public class House {
 
     public void setHumidity(int humidity){
         this.houseState.setHumidity(humidity);
-        this.houseStateListener.onStateChanged(houseState);
-        this.freshAirListener.onStateChanged(houseState);
-        this.humidifierListener.onStateChanged(houseState);
-
+        this.houseStateListeners.forEach(listener -> listener.onStateChanged(houseState));
     }
 
     public int getHumidity(){
