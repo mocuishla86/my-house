@@ -13,7 +13,7 @@ public class House {
     private HouseState houseState = new HouseState();
     private AirConditioner airConditioner;
     private ActionRepository actionRepository;
-    private HouseStateListener houseStateListener = new PrintHouseStateListener();
+    private HouseStateListener houseStateListener;
     private FreshAirListener freshAirListener;
     private HumidifierListener humidifierListener;
 
@@ -22,6 +22,7 @@ public class House {
         this.actionRepository = actionRepository;
         humidifierListener = new HumidifierListener(airConditioner, actionRepository);
         freshAirListener = new FreshAirListener(airConditioner, actionRepository);
+        houseStateListener = new PrintHouseStateListener();
     }
 
     public void setTemperature(double temperature) {
