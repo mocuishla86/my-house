@@ -11,12 +11,10 @@ import java.util.List;
 public class House {
 
     private HouseState houseState = new HouseState();
-    private AirConditioner airConditioner;
     private ActionRepository actionRepository;
     private List<HouseStateListener> houseStateListeners;
 
-    public House(AirConditioner airConditioner, ActionRepository actionRepository, List<HouseStateListener> houseStateListeners) {
-        this.airConditioner = airConditioner;
+    public House(ActionRepository actionRepository, List<HouseStateListener> houseStateListeners) {
         this.actionRepository = actionRepository;
         this.houseStateListeners = houseStateListeners;
     }

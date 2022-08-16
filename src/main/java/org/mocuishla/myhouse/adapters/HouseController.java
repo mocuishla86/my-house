@@ -7,7 +7,6 @@ import org.mocuishla.myhouse.domain.House;
 import org.mocuishla.myhouse.domain.HumidifierListener;
 import org.mocuishla.myhouse.domain.PrintHouseStateListener;
 import org.mocuishla.myhouse.domain.ports.Action;
-import org.mocuishla.myhouse.domain.ports.AirConditioner;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,7 +19,7 @@ public class HouseController {
 
     FakeAirConditioner fakeAirConditioner = new FakeAirConditioner();
     FakeActionRepository fakeActionRepository = new FakeActionRepository();
-    private House house = new House(fakeAirConditioner, fakeActionRepository, List.of(
+    private House house = new House(fakeActionRepository, List.of(
             new HumidifierListener(fakeAirConditioner, fakeActionRepository),
             new FreshAirListener(fakeAirConditioner, fakeActionRepository),
             new PrintHouseStateListener()));
