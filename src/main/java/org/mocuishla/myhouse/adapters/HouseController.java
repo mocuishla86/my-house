@@ -17,12 +17,11 @@ import java.util.List;
 @RestController
 public class HouseController {
 
-    FakeAirConditioner fakeAirConditioner = new FakeAirConditioner();
-    FakeActionRepository fakeActionRepository = new FakeActionRepository();
-    private House house = new House(fakeActionRepository, List.of(
-            new HumidifierListener(fakeAirConditioner, fakeActionRepository),
-            new FreshAirListener(fakeAirConditioner, fakeActionRepository),
-            new PrintHouseStateListener()));
+    private House house;
+
+    public HouseController(House house) {
+        this.house = house;
+    }
 
     @PostMapping("/temperature")
     public void registerTemperature(@RequestBody TemperatureDTO temperatureDTO){

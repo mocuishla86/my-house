@@ -2,19 +2,19 @@ package org.mocuishla.myhouse.domain;
 
 import org.mocuishla.myhouse.domain.ports.Action;
 import org.mocuishla.myhouse.domain.ports.ActionRepository;
-import org.mocuishla.myhouse.domain.ports.ActionType;
-import org.mocuishla.myhouse.domain.ports.AirConditioner;
+import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
+@Component
 public class House {
 
-    private HouseState houseState = new HouseState();
+    private HouseState houseState;
     private ActionRepository actionRepository;
     private List<HouseStateListener> houseStateListeners;
 
-    public House(ActionRepository actionRepository, List<HouseStateListener> houseStateListeners) {
+    public House(HouseState houseState, ActionRepository actionRepository, List<HouseStateListener> houseStateListeners) {
+        this.houseState = houseState;
         this.actionRepository = actionRepository;
         this.houseStateListeners = houseStateListeners;
     }

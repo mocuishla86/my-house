@@ -4,9 +4,11 @@ import org.mocuishla.myhouse.domain.ports.Action;
 import org.mocuishla.myhouse.domain.ports.ActionRepository;
 import org.mocuishla.myhouse.domain.ports.ActionType;
 import org.mocuishla.myhouse.domain.ports.AirConditioner;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 
+@Component
 public class HumidifierListener implements HouseStateListener{
 
     private AirConditioner airConditioner;
