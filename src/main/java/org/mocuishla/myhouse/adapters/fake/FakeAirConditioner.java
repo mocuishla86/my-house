@@ -3,7 +3,6 @@ package org.mocuishla.myhouse.adapters.fake;
 import org.mocuishla.myhouse.domain.ports.AirConditioner;
 import org.springframework.stereotype.Component;
 
-@Component
 public class FakeAirConditioner implements AirConditioner {
     private enum AirStatus{
         AirOn,
