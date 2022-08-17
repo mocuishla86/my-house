@@ -1,15 +1,14 @@
 package org.mocuishla.myhouse.adapters.fake;
 
 import org.mocuishla.myhouse.domain.ports.AirConditioner;
-import org.springframework.stereotype.Component;
 
 public class FakeAirConditioner implements AirConditioner {
-    private enum AirStatus{
+    private enum AirStatus {
         AirOn,
         AirOff,
     }
 
-    private enum HumidifierStatus{
+    private enum HumidifierStatus {
         HumidifierOn,
         HumidifierOff,
     }
@@ -19,7 +18,7 @@ public class FakeAirConditioner implements AirConditioner {
 
     @Override
     public void switchOnFreshAir() {
-        if(isFreshAirOn()){
+        if (isFreshAirOn()) {
             throw new RuntimeException("Overheating");
         }
         this.airStatus = AirStatus.AirOn;
@@ -27,23 +26,23 @@ public class FakeAirConditioner implements AirConditioner {
 
     @Override
     public void switchOffFreshAir() {
-        if(!isFreshAirOn()){
+        if (!isFreshAirOn()) {
             throw new RuntimeException("Already off");
         }
         this.airStatus = AirStatus.AirOff;
     }
 
     @Override
-    public void switchOnHumidifier(){
-        if(isHumidifierOn()){
+    public void switchOnHumidifier() {
+        if (isHumidifierOn()) {
             throw new RuntimeException("Humidifier Already On");
         }
         this.humidifierStatus = HumidifierStatus.HumidifierOn;
     }
 
     @Override
-    public void switchOffHumidifier(){
-        if(!isHumidifierOn()){
+    public void switchOffHumidifier() {
+        if (!isHumidifierOn()) {
             throw new RuntimeException("Humidifier Already Off");
         }
         this.humidifierStatus = HumidifierStatus.HumidifierOff;
@@ -55,7 +54,7 @@ public class FakeAirConditioner implements AirConditioner {
     }
 
     @Override
-    public boolean isHumidifierOn(){
+    public boolean isHumidifierOn() {
         return humidifierStatus == HumidifierStatus.HumidifierOn;
     }
 }

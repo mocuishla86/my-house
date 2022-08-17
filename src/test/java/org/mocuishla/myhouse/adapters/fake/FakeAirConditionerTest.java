@@ -3,7 +3,6 @@ package org.mocuishla.myhouse.adapters.fake;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
-
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class FakeAirConditionerTest {
@@ -54,7 +53,7 @@ class FakeAirConditionerTest {
     }
 
     @Test
-    public void shouldSwitchOnHumidifier(){
+    public void shouldSwitchOnHumidifier() {
         FakeAirConditioner sut = new FakeAirConditioner();
 
         sut.switchOnHumidifier();
@@ -63,7 +62,7 @@ class FakeAirConditionerTest {
     }
 
     @Test
-    public void shouldSwitchOffHumidifier(){
+    public void shouldSwitchOffHumidifier() {
         FakeAirConditioner sut = new FakeAirConditioner();
         sut.switchOnHumidifier();
 
@@ -73,7 +72,7 @@ class FakeAirConditionerTest {
     }
 
     @Test
-    public void checkIfFreshAirIsStillOnIfWeSwitchOnTheHumidifier(){
+    public void checkIfFreshAirIsStillOnIfWeSwitchOnTheHumidifier() {
         FakeAirConditioner sut = new FakeAirConditioner();
         sut.switchOnFreshAir();
         sut.switchOnHumidifier();
@@ -90,7 +89,7 @@ class FakeAirConditionerTest {
     }
 
     @Test
-    public void shouldFailIfSwitchingHumidifierOffWhenAlreadyOff(){
+    public void shouldFailIfSwitchingHumidifierOffWhenAlreadyOff() {
         FakeAirConditioner sut = new FakeAirConditioner();
         sut.switchOnHumidifier();
 

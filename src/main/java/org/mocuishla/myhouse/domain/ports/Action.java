@@ -27,7 +27,7 @@ public class Action {
         return temperature;
     }
 
-    public int getHumidity(){
+    public int getHumidity() {
         return humidity;
     }
 

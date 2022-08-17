@@ -1,7 +1,5 @@
 package org.mocuishla.myhouse.domain;
 
-import org.springframework.stereotype.Component;
-
 public class HouseState {
 
     private double temperature;
@@ -22,8 +20,6 @@ public class HouseState {
     public void setHumidity(int humidity) {
         this.humidity = humidity;
     }
-
-
 
 
 }

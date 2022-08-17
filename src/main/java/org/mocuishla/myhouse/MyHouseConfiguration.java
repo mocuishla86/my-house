@@ -34,12 +34,12 @@ public class MyHouseConfiguration {
     }
 
     @Bean
-    public House getHouse(HouseState houseState, ActionRepository actionRepository, List<HouseStateListener> listeners){
+    public House getHouse(HouseState houseState, ActionRepository actionRepository, List<HouseStateListener> listeners) {
         return new House(houseState, actionRepository, listeners);
     }
 
     @Bean
-    public HouseState getHouseState(){
+    public HouseState getHouseState() {
         return new HouseState();
     }
 

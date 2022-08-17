@@ -1,10 +1,8 @@
 package org.mocuishla.myhouse.domain;
 
-import org.springframework.stereotype.Component;
-
-public class PrintHouseStateListener implements HouseStateListener{
+public class PrintHouseStateListener implements HouseStateListener {
     @Override
-    public void onStateChanged(HouseState newState){
+    public void onStateChanged(HouseState newState) {
         double temperature = newState.getTemperature();
         int humidity = newState.getHumidity();
 

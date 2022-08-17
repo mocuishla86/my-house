@@ -1,11 +1,6 @@
 package org.mocuishla.myhouse.adapters;
 
-import org.mocuishla.myhouse.adapters.fake.FakeActionRepository;
-import org.mocuishla.myhouse.adapters.fake.FakeAirConditioner;
-import org.mocuishla.myhouse.domain.FreshAirListener;
 import org.mocuishla.myhouse.domain.House;
-import org.mocuishla.myhouse.domain.HumidifierListener;
-import org.mocuishla.myhouse.domain.PrintHouseStateListener;
 import org.mocuishla.myhouse.domain.ports.Action;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,17 +19,17 @@ public class HouseController {
     }
 
     @PostMapping("/temperature")
-    public void registerTemperature(@RequestBody TemperatureDTO temperatureDTO){
+    public void registerTemperature(@RequestBody TemperatureDTO temperatureDTO) {
         house.setTemperature(temperatureDTO.getTemperature());
     }
 
     @PostMapping("/humidity")
-    public void registerHumidity(@RequestBody HumidityDTO humidityDTO){
+    public void registerHumidity(@RequestBody HumidityDTO humidityDTO) {
         house.setHumidity(humidityDTO.getHumidity());
     }
 
     @GetMapping("/actions")
-    public List<Action> getActions(){
+    public List<Action> getActions() {
         return house.getAllActions();
     }
 }
