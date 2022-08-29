@@ -1,6 +1,7 @@
 package org.mocuishla.myhouse;
 
-import org.mocuishla.myhouse.adapters.fake.FakeActionRepository;
+import org.mocuishla.myhouse.adapters.JpaActionRepository;
+import org.mocuishla.myhouse.adapters.PostgresActionRepository;
 import org.mocuishla.myhouse.adapters.fake.FakeAirConditioner;
 import org.mocuishla.myhouse.domain.*;
 import org.mocuishla.myhouse.domain.ports.ActionRepository;
@@ -20,8 +21,8 @@ public class MyHouseConfiguration {
 
 
     @Bean
-    public ActionRepository getActionRepository() {
-        return new FakeActionRepository();
+    public ActionRepository getActionRepository(JpaActionRepository jpaActionRepository) {
+        return new PostgresActionRepository(jpaActionRepository);
     }
 
     @Bean
