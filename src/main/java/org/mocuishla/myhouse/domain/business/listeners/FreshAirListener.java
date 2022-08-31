@@ -1,8 +1,9 @@
-package org.mocuishla.myhouse.domain;
+package org.mocuishla.myhouse.domain.business.listeners;
 
-import org.mocuishla.myhouse.domain.ports.Action;
+import org.mocuishla.myhouse.domain.business.model.Action;
+import org.mocuishla.myhouse.domain.business.model.ActionType;
+import org.mocuishla.myhouse.domain.business.model.HouseState;
 import org.mocuishla.myhouse.domain.ports.ActionRepository;
-import org.mocuishla.myhouse.domain.ports.ActionType;
 import org.mocuishla.myhouse.domain.ports.AirConditioner;
 
 import java.time.LocalDateTime;

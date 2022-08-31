@@ -1,6 +1,8 @@
-package org.mocuishla.myhouse.domain;
+package org.mocuishla.myhouse.domain.business;
 
-import org.mocuishla.myhouse.domain.ports.Action;
+import org.mocuishla.myhouse.domain.business.listeners.HouseStateListener;
+import org.mocuishla.myhouse.domain.business.model.Action;
+import org.mocuishla.myhouse.domain.business.model.HouseState;
 import org.mocuishla.myhouse.domain.ports.ActionRepository;
 
 import java.util.List;

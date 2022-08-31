@@ -1,8 +1,9 @@
 package org.mocuishla.myhouse.adapters.fake;
 
 import org.junit.jupiter.api.Test;
-import org.mocuishla.myhouse.domain.ports.Action;
-import org.mocuishla.myhouse.domain.ports.ActionType;
+import org.mocuishla.myhouse.adapters.output.persistence.fake.FakeActionRepository;
+import org.mocuishla.myhouse.domain.business.model.Action;
+import org.mocuishla.myhouse.domain.business.model.ActionType;
 
 import java.time.LocalDateTime;
 import java.util.List;

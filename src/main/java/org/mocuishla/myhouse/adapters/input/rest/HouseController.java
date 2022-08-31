@@ -1,7 +1,7 @@
-package org.mocuishla.myhouse.adapters;
+package org.mocuishla.myhouse.adapters.input.rest;
 
-import org.mocuishla.myhouse.domain.House;
-import org.mocuishla.myhouse.domain.ports.Action;
+import org.mocuishla.myhouse.domain.business.House;
+import org.mocuishla.myhouse.domain.business.model.Action;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

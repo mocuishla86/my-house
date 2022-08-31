@@ -1,4 +1,4 @@
-package org.mocuishla.myhouse.adapters.fake;
+package org.mocuishla.myhouse.adapters.output.airconditioner;
 
 import org.mocuishla.myhouse.domain.ports.AirConditioner;
 

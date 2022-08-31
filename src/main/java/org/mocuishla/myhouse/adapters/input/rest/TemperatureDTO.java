@@ -1,4 +1,4 @@
-package org.mocuishla.myhouse.adapters;
+package org.mocuishla.myhouse.adapters.input.rest;
 
 public class TemperatureDTO {
 

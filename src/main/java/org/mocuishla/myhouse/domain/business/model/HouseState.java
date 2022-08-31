@@ -1,4 +1,4 @@
-package org.mocuishla.myhouse.domain;
+package org.mocuishla.myhouse.domain.business.model;
 
 public class HouseState {
 

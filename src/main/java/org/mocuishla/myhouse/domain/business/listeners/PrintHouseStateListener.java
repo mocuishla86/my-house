@@ -1,4 +1,6 @@
-package org.mocuishla.myhouse.domain;
+package org.mocuishla.myhouse.domain.business.listeners;
+
+import org.mocuishla.myhouse.domain.business.model.HouseState;
 
 public class PrintHouseStateListener implements HouseStateListener {
     @Override

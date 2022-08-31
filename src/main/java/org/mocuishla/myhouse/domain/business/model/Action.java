@@ -1,4 +1,4 @@
-package org.mocuishla.myhouse.domain.ports;
+package org.mocuishla.myhouse.domain.business.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

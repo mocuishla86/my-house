@@ -1,6 +1,6 @@
-package org.mocuishla.myhouse.adapters.fake;
+package org.mocuishla.myhouse.adapters.output.persistence.fake;
 
-import org.mocuishla.myhouse.domain.ports.Action;
+import org.mocuishla.myhouse.domain.business.model.Action;
 import org.mocuishla.myhouse.domain.ports.ActionRepository;
 
 import java.util.ArrayList;

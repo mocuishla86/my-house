@@ -1,11 +1,16 @@
 package org.mocuishla.myhouse.domain;
 
 import org.junit.jupiter.api.Test;
-import org.mocuishla.myhouse.adapters.fake.FakeActionRepository;
-import org.mocuishla.myhouse.adapters.fake.FakeAirConditioner;
-import org.mocuishla.myhouse.domain.ports.Action;
+import org.mocuishla.myhouse.adapters.output.airconditioner.FakeAirConditioner;
+import org.mocuishla.myhouse.adapters.output.persistence.fake.FakeActionRepository;
+import org.mocuishla.myhouse.domain.business.House;
+import org.mocuishla.myhouse.domain.business.listeners.FreshAirListener;
+import org.mocuishla.myhouse.domain.business.listeners.HumidifierListener;
+import org.mocuishla.myhouse.domain.business.listeners.PrintHouseStateListener;
+import org.mocuishla.myhouse.domain.business.model.Action;
+import org.mocuishla.myhouse.domain.business.model.ActionType;
+import org.mocuishla.myhouse.domain.business.model.HouseState;
 import org.mocuishla.myhouse.domain.ports.ActionRepository;
-import org.mocuishla.myhouse.domain.ports.ActionType;
 import org.mocuishla.myhouse.domain.ports.AirConditioner;
 
 import java.util.List;

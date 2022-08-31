@@ -1,6 +1,7 @@
 package org.mocuishla.myhouse.adapters.fake;
 
 import org.junit.jupiter.api.Test;
+import org.mocuishla.myhouse.adapters.output.airconditioner.FakeAirConditioner;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;

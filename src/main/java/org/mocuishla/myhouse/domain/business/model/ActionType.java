@@ -1,4 +1,4 @@
-package org.mocuishla.myhouse.domain.ports;
+package org.mocuishla.myhouse.domain.business.model;
 
 public enum ActionType {
     TurnFreshAirOn,
