@@ -17,7 +17,13 @@ public class PostgresActionRepository implements ActionRepository {
 
     @Override
     public void saveAction(Action action) {
-        jpaActionRepository.save(action);
+        ActionEntity actionEntity = new ActionEntity(
+                action.getId(),
+                action.getTimestamp(),
+                action.getType(),
+                action.getTemperature(),
+                action.getHumidity());
+        jpaActionRepository.save(actionEntity);
     }
 
     @Override
@@ -26,6 +32,12 @@ public class PostgresActionRepository implements ActionRepository {
 
         return StreamSupport
                 .stream(iterable.spliterator(), false)
+                .map(actionEntity -> new Action(
+                        actionEntity.getId(),
+                        actionEntity.getTimestamp(),
+                        actionEntity.getType(),
+                        actionEntity.getTemperature(),
+                        actionEntity.getHumidity()))
                 .collect(Collectors.toList());
 
     }

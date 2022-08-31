@@ -1,30 +1,31 @@
-package org.mocuishla.myhouse.domain.business.model;
+package org.mocuishla.myhouse.adapters.output.persistence.postgres;
 
+import org.mocuishla.myhouse.domain.business.model.ActionType;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-public class Action {
+@Entity(name = "action")
+public class ActionEntity {
     private LocalDateTime timestamp;
     private ActionType type;
     private double temperature;
     private int humidity;
 
+    @Id
     private UUID id;
 
-    public Action(LocalDateTime timestamp, ActionType type, double temperature, int humidity) {
-        this.timestamp = timestamp;
-        this.type = type;
-        this.temperature = temperature;
-        this.humidity = humidity;
-        this.id = UUID.randomUUID();
-    }
-
-    public Action(UUID id, LocalDateTime timestamp, ActionType type, double temperature, int humidity) {
+    public ActionEntity(UUID id, LocalDateTime timestamp, ActionType type, double temperature, int humidity) {
         this.timestamp = timestamp;
         this.type = type;
         this.temperature = temperature;
         this.humidity = humidity;
         this.id = id;
+    }
+
+    public ActionEntity() {
     }
 
     public LocalDateTime getTimestamp() {
@@ -47,8 +48,5 @@ public class Action {
         return id;
     }
 
-    public void setId(UUID id) {
-        this.id = id;
-    }
 
 }
