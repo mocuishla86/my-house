@@ -1,5 +1,6 @@
 package org.mocuishla.myhouse.domain;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mocuishla.myhouse.domain.business.House;
 import org.mocuishla.myhouse.domain.business.listeners.FreshAirListener;
@@ -15,16 +16,23 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
 public class MockitoHouseTest {
-    @Test
-    public void shouldSetTemperature() {
-        AirConditioner airConditioner = mock(AirConditioner.class);
-        ActionRepository actionRepository = mock(ActionRepository.class);
-        HouseState houseState = new HouseState();
-        House sut = new House(houseState, actionRepository, List.of(
+
+    private AirConditioner airConditioner;
+    private ActionRepository actionRepository;
+    private House sut;
+
+    @BeforeEach
+    public void setUp() {
+        airConditioner = mock(AirConditioner.class);
+        actionRepository = mock(ActionRepository.class);
+        sut = new House(new HouseState(), actionRepository, List.of(
                 new HumidifierListener(airConditioner, actionRepository),
                 new FreshAirListener(airConditioner, actionRepository),
                 new PrintHouseStateListener()));
+    }
 
+    @Test
+    public void shouldSetTemperature() {
         sut.setTemperature(36.3);
         double actualTemperature = sut.getTemperature();
 
@@ -33,14 +41,6 @@ public class MockitoHouseTest {
 
     @Test
     public void shouldGetHumidity() {
-        AirConditioner airConditioner = mock(AirConditioner.class);
-        ActionRepository actionRepository = mock(ActionRepository.class);
-        HouseState houseState = new HouseState();
-        House sut = new House(houseState, actionRepository, List.of(
-                new HumidifierListener(airConditioner, actionRepository),
-                new FreshAirListener(airConditioner, actionRepository),
-                new PrintHouseStateListener()));
-
         sut.setHumidity(40);
         int actualHumidity = sut.getHumidity();
 
@@ -49,14 +49,6 @@ public class MockitoHouseTest {
 
     @Test
     public void shouldSwitchOnAirConditionerIfTempIsMoreThanThreshold() {
-        AirConditioner airConditioner = mock(AirConditioner.class);
-        ActionRepository actionRepository = mock(ActionRepository.class);
-        HouseState houseState = new HouseState();
-        House sut = new House(houseState, actionRepository, List.of(
-                new HumidifierListener(airConditioner, actionRepository),
-                new FreshAirListener(airConditioner, actionRepository),
-                new PrintHouseStateListener()));
-
         sut.setTemperature(30);
 
         verify(airConditioner).switchOnFreshAir();
@@ -64,14 +56,6 @@ public class MockitoHouseTest {
 
     @Test
     public void shouldNotSwitchOnAirConditionerIfTempIsLessThanThreshold() {
-        AirConditioner airConditioner = mock(AirConditioner.class);
-        ActionRepository actionRepository = mock(ActionRepository.class);
-        HouseState houseState = new HouseState();
-        House sut = new House(houseState, actionRepository, List.of(
-                new HumidifierListener(airConditioner, actionRepository),
-                new FreshAirListener(airConditioner, actionRepository),
-                new PrintHouseStateListener()));
-
         sut.setTemperature(25);
 
         verify(airConditioner, never()).switchOnFreshAir();
@@ -79,13 +63,6 @@ public class MockitoHouseTest {
 
     @Test
     public void shouldSwitchOffAirConditionerIfTempChangeToLowerTempThanThreshold() {
-        AirConditioner airConditioner = mock(AirConditioner.class);
-        ActionRepository actionRepository = mock(ActionRepository.class);
-        HouseState houseState = new HouseState();
-        House sut = new House(houseState, actionRepository, List.of(
-                new HumidifierListener(airConditioner, actionRepository),
-                new FreshAirListener(airConditioner, actionRepository),
-                new PrintHouseStateListener()));
         when(airConditioner.isFreshAirOn()).thenReturn(true);
 
         sut.setTemperature(21);
@@ -96,13 +73,6 @@ public class MockitoHouseTest {
 
     @Test
     public void shouldNotSwitchOffAirConditionerIfTempChangeToGreaterTempThanThreshold() {
-        AirConditioner airConditioner = mock(AirConditioner.class);
-        ActionRepository actionRepository = mock(ActionRepository.class);
-        HouseState houseState = new HouseState();
-        House sut = new House(houseState, actionRepository, List.of(
-                new HumidifierListener(airConditioner, actionRepository),
-                new FreshAirListener(airConditioner, actionRepository),
-                new PrintHouseStateListener()));
         when(airConditioner.isFreshAirOn()).thenReturn(true);
 
         sut.setTemperature(23);
@@ -112,13 +82,6 @@ public class MockitoHouseTest {
 
     @Test
     public void shouldNotSwitchAirConditionerOnIfItIsAlreadyOn() {
-        AirConditioner airConditioner = mock(AirConditioner.class);
-        ActionRepository actionRepository = mock(ActionRepository.class);
-        HouseState houseState = new HouseState();
-        House sut = new House(houseState, actionRepository, List.of(
-                new HumidifierListener(airConditioner, actionRepository),
-                new FreshAirListener(airConditioner, actionRepository),
-                new PrintHouseStateListener()));
         when(airConditioner.isFreshAirOn()).thenReturn(true);
 
         sut.setTemperature(48);
@@ -128,13 +91,6 @@ public class MockitoHouseTest {
 
     @Test
     public void shouldNotSwitchAirConditionerOffIfItIsAlreadyOff() {
-        AirConditioner airConditioner = mock(AirConditioner.class);
-        ActionRepository actionRepository = mock(ActionRepository.class);
-        HouseState houseState = new HouseState();
-        House sut = new House(houseState, actionRepository, List.of(
-                new HumidifierListener(airConditioner, actionRepository),
-                new FreshAirListener(airConditioner, actionRepository),
-                new PrintHouseStateListener()));
         when(airConditioner.isFreshAirOn()).thenReturn(false);
 
         sut.setTemperature(10);
@@ -144,13 +100,6 @@ public class MockitoHouseTest {
 
     @Test
     public void shouldSaveActionIntoRepositoryWhenFreshAirSwitchOn() {
-        AirConditioner airConditioner = mock(AirConditioner.class);
-        ActionRepository actionRepository = mock(ActionRepository.class);
-        HouseState houseState = new HouseState();
-        House sut = new House(houseState, actionRepository, List.of(
-                new HumidifierListener(airConditioner, actionRepository),
-                new FreshAirListener(airConditioner, actionRepository),
-                new PrintHouseStateListener()));
         when(airConditioner.isFreshAirOn()).thenReturn(false);
         sut.setHumidity(40);
 
@@ -161,13 +110,6 @@ public class MockitoHouseTest {
 
     @Test
     public void shouldSaveActionIntoRepositoryWhenFreshAirSwitchOff() {
-        AirConditioner airConditioner = mock(AirConditioner.class);
-        ActionRepository actionRepository = mock(ActionRepository.class);
-        HouseState houseState = new HouseState();
-        House sut = new House(houseState, actionRepository, List.of(
-                new HumidifierListener(airConditioner, actionRepository),
-                new FreshAirListener(airConditioner, actionRepository),
-                new PrintHouseStateListener()));
         when(airConditioner.isFreshAirOn()).thenReturn(false);
         sut.setHumidity(40);
         when(airConditioner.isFreshAirOn()).thenReturn(true);

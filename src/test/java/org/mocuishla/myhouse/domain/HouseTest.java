@@ -1,5 +1,6 @@
 package org.mocuishla.myhouse.domain;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mocuishla.myhouse.adapters.output.airconditioner.FakeAirConditioner;
 import org.mocuishla.myhouse.adapters.output.persistence.fake.FakeActionRepository;
@@ -19,16 +20,23 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 
 public class HouseTest {
-    @Test
-    public void shouldSetTemperature() {
-        AirConditioner airConditioner = new FakeAirConditioner();
-        ActionRepository actionRepository = new FakeActionRepository();
-        HouseState houseState = new HouseState();
-        House sut = new House(houseState, actionRepository, List.of(
+
+    private AirConditioner airConditioner;
+    private ActionRepository actionRepository;
+    private House sut;
+
+    @BeforeEach
+    public void setUp() {
+        airConditioner = new FakeAirConditioner();
+        actionRepository = new FakeActionRepository();
+        sut = new House(new HouseState(), actionRepository, List.of(
                 new HumidifierListener(airConditioner, actionRepository),
                 new FreshAirListener(airConditioner, actionRepository),
                 new PrintHouseStateListener()));
+    }
 
+    @Test
+    public void shouldSetTemperature() {
         sut.setTemperature(36.3);
         double actualTemperature = sut.getTemperature();
 
@@ -37,14 +45,6 @@ public class HouseTest {
 
     @Test
     public void shouldGetHumidity() {
-        AirConditioner airConditioner = new FakeAirConditioner();
-        ActionRepository actionRepository = new FakeActionRepository();
-        HouseState houseState = new HouseState();
-        House sut = new House(houseState, actionRepository, List.of(
-                new HumidifierListener(airConditioner, actionRepository),
-                new FreshAirListener(airConditioner, actionRepository),
-                new PrintHouseStateListener()));
-
         sut.setHumidity(40);
         int actualHumidity = sut.getHumidity();
 
@@ -53,14 +53,6 @@ public class HouseTest {
 
     @Test
     public void shouldSwitchOnAirConditionerIfTempIsMoreThanThreshold() {
-        AirConditioner airConditioner = new FakeAirConditioner();
-        ActionRepository actionRepository = new FakeActionRepository();
-        HouseState houseState = new HouseState();
-        House sut = new House(houseState, actionRepository, List.of(
-                new HumidifierListener(airConditioner, actionRepository),
-                new FreshAirListener(airConditioner, actionRepository),
-                new PrintHouseStateListener()));
-
         sut.setTemperature(30);
 
         assertThat(airConditioner.isFreshAirOn()).isTrue();
@@ -68,14 +60,6 @@ public class HouseTest {
 
     @Test
     public void shouldNotSwitchOnAirConditionerIfTempIsLessThanThreshold() {
-        AirConditioner airConditioner = new FakeAirConditioner();
-        ActionRepository actionRepository = new FakeActionRepository();
-        HouseState houseState = new HouseState();
-        House sut = new House(houseState, actionRepository, List.of(
-                new HumidifierListener(airConditioner, actionRepository),
-                new FreshAirListener(airConditioner, actionRepository),
-                new PrintHouseStateListener()));
-
         sut.setTemperature(25);
 
         assertThat(airConditioner.isFreshAirOn()).isFalse();
@@ -83,13 +67,6 @@ public class HouseTest {
 
     @Test
     public void shouldSwitchOffAirConditionerIfTempChangeToLowerTempThanThreshold() {
-        AirConditioner airConditioner = new FakeAirConditioner();
-        ActionRepository actionRepository = new FakeActionRepository();
-        HouseState houseState = new HouseState();
-        House sut = new House(houseState, actionRepository, List.of(
-                new HumidifierListener(airConditioner, actionRepository),
-                new FreshAirListener(airConditioner, actionRepository),
-                new PrintHouseStateListener()));
         sut.setTemperature(34);
 
         sut.setTemperature(21);
@@ -99,13 +76,6 @@ public class HouseTest {
 
     @Test
     public void shouldNotSwitchOffAirConditionerIfTempChangeToGreaterTempThanThreshold() {
-        AirConditioner airConditioner = new FakeAirConditioner();
-        ActionRepository actionRepository = new FakeActionRepository();
-        HouseState houseState = new HouseState();
-        House sut = new House(houseState, actionRepository, List.of(
-                new HumidifierListener(airConditioner, actionRepository),
-                new FreshAirListener(airConditioner, actionRepository),
-                new PrintHouseStateListener()));
         sut.setTemperature(34);
 
         sut.setTemperature(23);
@@ -115,13 +85,6 @@ public class HouseTest {
 
     @Test
     public void shouldNotSwitchAirConditionerOnIfItIsAlreadyOn() {
-        AirConditioner airConditioner = new FakeAirConditioner();
-        ActionRepository actionRepository = new FakeActionRepository();
-        HouseState houseState = new HouseState();
-        House sut = new House(houseState, actionRepository, List.of(
-                new HumidifierListener(airConditioner, actionRepository),
-                new FreshAirListener(airConditioner, actionRepository),
-                new PrintHouseStateListener()));
         sut.setTemperature(34);
 
         assertThatCode(() -> sut.setTemperature(33)).doesNotThrowAnyException();
@@ -130,13 +93,6 @@ public class HouseTest {
 
     @Test
     public void shouldNotSwitchAirConditionerOffIfItIsAlreadyOff() {
-        AirConditioner airConditioner = new FakeAirConditioner();
-        ActionRepository actionRepository = new FakeActionRepository();
-        HouseState houseState = new HouseState();
-        House sut = new House(houseState, actionRepository, List.of(
-                new HumidifierListener(airConditioner, actionRepository),
-                new FreshAirListener(airConditioner, actionRepository),
-                new PrintHouseStateListener()));
         sut.setTemperature(12);
 
         assertThatCode(() -> sut.setTemperature(13)).doesNotThrowAnyException();
@@ -145,13 +101,6 @@ public class HouseTest {
 
     @Test
     public void shouldSaveActionIntoRepositoryWhenFreshAirSwitchOn() {
-        AirConditioner airConditioner = new FakeAirConditioner();
-        ActionRepository actionRepository = new FakeActionRepository();
-        HouseState houseState = new HouseState();
-        House sut = new House(houseState, actionRepository, List.of(
-                new HumidifierListener(airConditioner, actionRepository),
-                new FreshAirListener(airConditioner, actionRepository),
-                new PrintHouseStateListener()));
         sut.setHumidity(40);
 
         sut.setTemperature(34);
@@ -165,13 +114,6 @@ public class HouseTest {
 
     @Test
     public void shouldSaveActionIntoRepositoryWhenFreshAirSwitchOff() {
-        AirConditioner airConditioner = new FakeAirConditioner();
-        ActionRepository actionRepository = new FakeActionRepository();
-        HouseState houseState = new HouseState();
-        House sut = new House(houseState, actionRepository, List.of(
-                new HumidifierListener(airConditioner, actionRepository),
-                new FreshAirListener(airConditioner, actionRepository),
-                new PrintHouseStateListener()));
         sut.setHumidity(40);
 
         sut.setTemperature(34);
@@ -186,14 +128,6 @@ public class HouseTest {
 
     @Test
     public void shouldSwitchOnHumidifierWhenHumidityIsUnder30() {
-        AirConditioner airConditioner = new FakeAirConditioner();
-        ActionRepository actionRepository = new FakeActionRepository();
-        HouseState houseState = new HouseState();
-        House sut = new House(houseState, actionRepository, List.of(
-                new HumidifierListener(airConditioner, actionRepository),
-                new FreshAirListener(airConditioner, actionRepository),
-                new PrintHouseStateListener()));
-
         sut.setHumidity(29);
 
         assertThat(airConditioner.isHumidifierOn()).isTrue();
@@ -201,13 +135,6 @@ public class HouseTest {
 
     @Test
     public void shouldSwitchOffHumidifierWhenHumidityIsAbove30() {
-        AirConditioner airConditioner = new FakeAirConditioner();
-        ActionRepository actionRepository = new FakeActionRepository();
-        HouseState houseState = new HouseState();
-        House sut = new House(houseState, actionRepository, List.of(
-                new HumidifierListener(airConditioner, actionRepository),
-                new FreshAirListener(airConditioner, actionRepository),
-                new PrintHouseStateListener()));
         sut.setHumidity(29);
 
         sut.setHumidity(31);
@@ -217,13 +144,6 @@ public class HouseTest {
 
     @Test
     public void shouldNotSwitchHumidifierOnIfItIsAlreadyOn() {
-        AirConditioner airConditioner = new FakeAirConditioner();
-        ActionRepository actionRepository = new FakeActionRepository();
-        HouseState houseState = new HouseState();
-        House sut = new House(houseState, actionRepository, List.of(
-                new HumidifierListener(airConditioner, actionRepository),
-                new FreshAirListener(airConditioner, actionRepository),
-                new PrintHouseStateListener()));
         sut.setHumidity(26);
 
         assertThatCode(() -> sut.setHumidity(28)).doesNotThrowAnyException();
@@ -232,13 +152,6 @@ public class HouseTest {
 
     @Test
     public void shouldNotSwitchHumidifierOffIfItIsAlreadyOff() {
-        AirConditioner airConditioner = new FakeAirConditioner();
-        ActionRepository actionRepository = new FakeActionRepository();
-        HouseState houseState = new HouseState();
-        House sut = new House(houseState, actionRepository, List.of(
-                new HumidifierListener(airConditioner, actionRepository),
-                new FreshAirListener(airConditioner, actionRepository),
-                new PrintHouseStateListener()));
         sut.setHumidity(34);
 
         assertThatCode(() -> sut.setHumidity(33)).doesNotThrowAnyException();
@@ -247,14 +160,6 @@ public class HouseTest {
 
     @Test
     public void shouldSaveActionIntoRepositoryWhenHumidifierSwitchOn() {
-        AirConditioner airConditioner = new FakeAirConditioner();
-        ActionRepository actionRepository = new FakeActionRepository();
-        HouseState houseState = new HouseState();
-        House sut = new House(houseState, actionRepository, List.of(
-                new HumidifierListener(airConditioner, actionRepository),
-                new FreshAirListener(airConditioner, actionRepository),
-                new PrintHouseStateListener()));
-
         sut.setHumidity(27);
 
         List<Action> allActions = sut.getAllActions();
@@ -266,14 +171,6 @@ public class HouseTest {
 
     @Test
     public void shouldSaveActionIntoRepositoryWhenHumidifierSwitchOff() {
-        AirConditioner airConditioner = new FakeAirConditioner();
-        ActionRepository actionRepository = new FakeActionRepository();
-        HouseState houseState = new HouseState();
-        House sut = new House(houseState, actionRepository, List.of(
-                new HumidifierListener(airConditioner, actionRepository),
-                new FreshAirListener(airConditioner, actionRepository),
-                new PrintHouseStateListener()));
-
         sut.setHumidity(27);
         sut.setHumidity(31);
 
