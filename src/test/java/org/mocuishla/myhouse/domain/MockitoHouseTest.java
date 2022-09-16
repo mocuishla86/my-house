@@ -6,6 +6,7 @@ import org.mocuishla.myhouse.domain.business.House;
 import org.mocuishla.myhouse.domain.business.listeners.FreshAirListener;
 import org.mocuishla.myhouse.domain.business.listeners.HumidifierListener;
 import org.mocuishla.myhouse.domain.business.listeners.PrintHouseStateListener;
+import org.mocuishla.myhouse.domain.business.model.ActionType;
 import org.mocuishla.myhouse.domain.business.model.HouseState;
 import org.mocuishla.myhouse.domain.ports.ActionRepository;
 import org.mocuishla.myhouse.domain.ports.AirConditioner;
@@ -117,5 +118,57 @@ public class MockitoHouseTest {
         sut.setTemperature(20);
 
         verify(actionRepository).saveAction(any());
+    }
+
+    @Test
+    public void shouldSwitchOnHumidifierWhenHumidityIsUnder30() {
+        sut.setHumidity(29);
+
+        verify(airConditioner).switchOnHumidifier();
+    }
+
+    @Test
+    public void shouldSwitchOffHumidifierWhenHumidityIsAbove30() {
+        when(airConditioner.isHumidifierOn()).thenReturn(true);
+
+        sut.setHumidity(31);
+
+        verify(airConditioner).switchOffHumidifier();
+    }
+
+    @Test
+    public void shouldNotSwitchHumidifierOnIfItIsAlreadyOn() {
+        when(airConditioner.isHumidifierOn()).thenReturn(true);
+
+        sut.setHumidity(29);
+
+        verify(airConditioner, never()).switchOnHumidifier();
+    }
+
+    @Test
+    public void shouldNotSwitchHumidifierOffIfItIsAlreadyOff() {
+        when(airConditioner.isHumidifierOn()).thenReturn(false);
+
+        sut.setHumidity(34);
+
+        verify(airConditioner, never()).switchOffHumidifier();
+    }
+
+    @Test
+    public void shouldSaveActionIntoRepositoryWhenHumidifierSwitchOn() {
+        when(airConditioner.isHumidifierOn()).thenReturn(false);
+
+        sut.setHumidity(15);
+
+        verify(actionRepository).saveAction(argThat(action -> action.getHumidity() == 15 && action.getType() == ActionType.TurnHumidifierOn));
+    }
+
+    @Test
+    public void shouldSaveActionIntoRepositoryWhenHumidifierSwitchOff() {
+        when(airConditioner.isHumidifierOn()).thenReturn(true);
+
+        sut.setHumidity(31);
+
+        verify(actionRepository).saveAction(argThat(action -> action.getHumidity() == 31 && action.getType() == ActionType.TurnHumidifierOff));
     }
 }
