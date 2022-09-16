@@ -51,4 +51,15 @@ public class Action {
         this.id = id;
     }
 
+    @Override
+    public String toString() {
+        return "Action{" +
+                "timestamp=" + timestamp +
+                ", type=" + type +
+                ", temperature=" + temperature +
+                ", humidity=" + humidity +
+                ", id=" + id +
+                '}';
+    }
+
 }
