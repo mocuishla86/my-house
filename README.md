@@ -47,3 +47,8 @@ Install [DBeaver](https://dbeaver.io/) to open database manually:
 ```shell
 brew install --cask dbeaver-community
 ```
+
+### Postman collection
+
+There is a Postman collection on [postman-collection.json](postman-collection.json) for manual testing. See these
+[instructions](https://learning.postman.com/docs/getting-started/importing-and-exporting-data/).

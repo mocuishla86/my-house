@@ -1,0 +1,105 @@
+{
+  "info": {
+    "_postman_id": "d00e0788-d7ca-4593-8eee-a202958a16da",
+    "name": "House",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "register temperature",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"temperature\" : 38}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "localhost:8080/temperature",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "temperature"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get actions",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "localhost:8080/actions",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "actions"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get actions by type",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "localhost:8080/actions?actionType=TurnFreshAirOn",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "actions"
+          ],
+          "query": [
+            {
+              "key": "actionType",
+              "value": "TurnFreshAirOn"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "register humidity",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"humidity\" : 90}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "localhost:8080/humidity",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "humidity"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
