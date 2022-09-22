@@ -40,6 +40,14 @@ docker ps
 docker-compose down
 ```
 
+- To clean database, use
+
+```shell
+docker-compose down
+docker volume rm my-house_db
+docker-compose up -d
+```
+
 ### Tooling
 
 Install [DBeaver](https://dbeaver.io/) to open database manually:
