@@ -6,12 +6,15 @@ import org.mocuishla.myhouse.domain.business.House;
 import org.mocuishla.myhouse.domain.business.listeners.FreshAirListener;
 import org.mocuishla.myhouse.domain.business.listeners.HumidifierListener;
 import org.mocuishla.myhouse.domain.business.listeners.PrintHouseStateListener;
+import org.mocuishla.myhouse.domain.business.model.Action;
 import org.mocuishla.myhouse.domain.business.model.ActionType;
 import org.mocuishla.myhouse.domain.business.model.HouseState;
 import org.mocuishla.myhouse.domain.ports.ActionRepository;
 import org.mocuishla.myhouse.domain.ports.AirConditioner;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
@@ -170,5 +173,25 @@ public class MockitoHouseTest {
         sut.setHumidity(31);
 
         verify(actionRepository).saveAction(argThat(action -> action.getHumidity() == 31 && action.getType() == ActionType.TurnHumidifierOff));
+    }
+
+    @Test
+    public void shouldGetAllActions() {
+        List<Action> actions = List.of(new Action(UUID.randomUUID(), LocalDateTime.now(), ActionType.TurnFreshAirOn, 42, 23));
+        when(actionRepository.getAllActions()).thenReturn(actions);
+
+        List<Action> actualActions = sut.getAllActions();
+
+        assertThat(actualActions).isEqualTo(actions);
+    }
+
+    @Test
+    public void shouldGetAllActionsByType() {
+        List<Action> actions = List.of(new Action(UUID.randomUUID(), LocalDateTime.now(), ActionType.TurnFreshAirOn, 42, 23));
+        when(actionRepository.getAllActionsByType(ActionType.TurnFreshAirOn)).thenReturn(actions);
+
+        List<Action> actualActions = sut.getAllActionsByType(ActionType.TurnFreshAirOn);
+
+        assertThat(actualActions).isEqualTo(actions);
     }
 }

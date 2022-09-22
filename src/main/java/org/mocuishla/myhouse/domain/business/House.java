@@ -2,6 +2,7 @@ package org.mocuishla.myhouse.domain.business;
 
 import org.mocuishla.myhouse.domain.business.listeners.HouseStateListener;
 import org.mocuishla.myhouse.domain.business.model.Action;
+import org.mocuishla.myhouse.domain.business.model.ActionType;
 import org.mocuishla.myhouse.domain.business.model.HouseState;
 import org.mocuishla.myhouse.domain.ports.ActionRepository;
 
@@ -39,5 +40,9 @@ public class House {
 
     public List<Action> getAllActions() {
         return actionRepository.getAllActions();
+    }
+
+    public List<Action> getAllActionsByType(ActionType actionType) {
+        return actionRepository.getAllActionsByType(actionType);
     }
 }

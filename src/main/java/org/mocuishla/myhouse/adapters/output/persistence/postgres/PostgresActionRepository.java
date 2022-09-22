@@ -1,6 +1,7 @@
 package org.mocuishla.myhouse.adapters.output.persistence.postgres;
 
 import org.mocuishla.myhouse.domain.business.model.Action;
+import org.mocuishla.myhouse.domain.business.model.ActionType;
 import org.mocuishla.myhouse.domain.ports.ActionRepository;
 
 import java.util.List;
@@ -40,5 +41,10 @@ public class PostgresActionRepository implements ActionRepository {
                         actionEntity.getHumidity()))
                 .collect(Collectors.toList());
 
+    }
+
+    @Override
+    public List<Action> getAllActionsByType(ActionType actionType) {
+        return null;
     }
 }
