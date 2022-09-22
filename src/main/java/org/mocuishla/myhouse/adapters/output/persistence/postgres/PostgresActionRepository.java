@@ -21,7 +21,7 @@ public class PostgresActionRepository implements ActionRepository {
         ActionEntity actionEntity = new ActionEntity(
                 action.getId(),
                 action.getTimestamp(),
-                action.getType(),
+                action.getType().name(),
                 action.getTemperature(),
                 action.getHumidity());
         jpaActionRepository.save(actionEntity);
@@ -36,7 +36,7 @@ public class PostgresActionRepository implements ActionRepository {
                 .map(actionEntity -> new Action(
                         actionEntity.getId(),
                         actionEntity.getTimestamp(),
-                        actionEntity.getType(),
+                        ActionType.valueOf(actionEntity.getType()),
                         actionEntity.getTemperature(),
                         actionEntity.getHumidity()))
                 .collect(Collectors.toList());
@@ -45,6 +45,16 @@ public class PostgresActionRepository implements ActionRepository {
 
     @Override
     public List<Action> getAllActionsByType(ActionType actionType) {
-        return null;
+        var iterable = jpaActionRepository.findByType(actionType.name());
+
+        return StreamSupport
+                .stream(iterable.spliterator(), false)
+                .map(actionEntity -> new Action(
+                        actionEntity.getId(),
+                        actionEntity.getTimestamp(),
+                        ActionType.valueOf(actionEntity.getType()),
+                        actionEntity.getTemperature(),
+                        actionEntity.getHumidity()))
+                .collect(Collectors.toList());
     }
 }

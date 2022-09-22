@@ -33,4 +33,26 @@ class PostgresActionRepositoryTest {
                         && actionInList.getType().equals(ActionType.TurnFreshAirOn));
     }
 
+    @Test
+    void shouldSaveActionByType() {
+        PostgresActionRepository sut = new PostgresActionRepository(jpaActionRepository);
+        Action action = new Action(LocalDateTime.now(), ActionType.TurnFreshAirOn, 44, 34);
+        Action action2 = new Action(LocalDateTime.now(), ActionType.TurnFreshAirOff, 24, 34);
+
+        sut.saveAction(action);
+        sut.saveAction(action2);
+
+        List<Action> actions = sut.getAllActionsByType(ActionType.TurnFreshAirOn);
+
+        assertThat(actions).anyMatch(actionInList ->
+                actionInList.getId().equals(action.getId())
+                        && actionInList.getTimestamp().equals(action.getTimestamp())
+                        && actionInList.getTemperature() == 44
+                        && actionInList.getHumidity() == 34
+                        && actionInList.getType().equals(ActionType.TurnFreshAirOn));
+        assertThat(actions).allMatch(actionInList ->
+                actionInList.getType().equals(ActionType.TurnFreshAirOn)
+        );
+    }
+
 }
