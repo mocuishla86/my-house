@@ -104,4 +104,41 @@ class HouseControllerTest {
                 .andExpect(jsonPath("$[1].temperature").value(-38))
                 .andExpect(jsonPath("$[1].humidity").value(22));
     }
+
+    @Test
+    void getActionsByType() throws Exception {
+        when(house.getAllActionsByType(ActionType.TurnFreshAirOn)).thenReturn(List.of(
+                new Action(
+                        UUID.fromString("6d455266-705b-4efc-ba64-a98a7d637bdb"),
+                        LocalDateTime.of(2007, 3, 2, 0, 22, 2, 45),
+                        ActionType.TurnFreshAirOn,
+                        37,
+                        21
+                ),
+                new Action(
+                        UUID.fromString("19416dbb-83cb-43cb-b34b-02219f584950"),
+                        LocalDateTime.of(2017, 3, 2, 0, 22, 2, 45),
+                        ActionType.TurnFreshAirOn,
+                        38,
+                        22
+                )
+        ));
+
+        ResultActions result = mockMvc.perform(get("/actions?actionType=TurnFreshAirOn")
+                .accept(MediaType.APPLICATION_JSON));
+
+        result.andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$", hasSize(2)))
+                .andExpect(jsonPath("$[0].id").value("6d455266-705b-4efc-ba64-a98a7d637bdb"))
+                .andExpect(jsonPath("$[0].timestamp").value("2007-03-02T00:22:02.000000045"))
+                .andExpect(jsonPath("$[0].type").value("TurnFreshAirOn"))
+                .andExpect(jsonPath("$[0].temperature").value(37))
+                .andExpect(jsonPath("$[0].humidity").value(21))
+                .andExpect(jsonPath("$[1].id").value("19416dbb-83cb-43cb-b34b-02219f584950"))
+                .andExpect(jsonPath("$[1].timestamp").value("2017-03-02T00:22:02.000000045"))
+                .andExpect(jsonPath("$[1].type").value("TurnFreshAirOn"))
+                .andExpect(jsonPath("$[1].temperature").value(38))
+                .andExpect(jsonPath("$[1].humidity").value(22));
+    }
 }

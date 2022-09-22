@@ -2,10 +2,8 @@ package org.mocuishla.myhouse.adapters.input.rest;
 
 import org.mocuishla.myhouse.domain.business.House;
 import org.mocuishla.myhouse.domain.business.model.Action;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.mocuishla.myhouse.domain.business.model.ActionType;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,7 +27,10 @@ public class HouseController {
     }
 
     @GetMapping("/actions")
-    public List<Action> getActions() {
-        return house.getAllActions();
+    public List<Action> getActionsByType(@RequestParam(required = false) ActionType actionType) {
+        if (actionType == null) {
+            return house.getAllActions();
+        }
+        return house.getAllActionsByType(actionType);
     }
 }
