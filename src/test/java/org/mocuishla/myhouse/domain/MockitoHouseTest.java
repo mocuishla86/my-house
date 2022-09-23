@@ -194,4 +194,14 @@ public class MockitoHouseTest {
 
         assertThat(actualActions).isEqualTo(actions);
     }
+
+    @Test
+    public void shouldGetAllActionsByTemperature() {
+        List<Action> actions = List.of(new Action(UUID.randomUUID(), LocalDateTime.now(), ActionType.TurnFreshAirOn, 42, 23));
+        when(actionRepository.getAllActionsByTemperature(42)).thenReturn(actions);
+
+        List<Action> actualActions = sut.getAllActionsByTemperature(42);
+
+        assertThat(actualActions).isEqualTo(actions);
+    }
 }

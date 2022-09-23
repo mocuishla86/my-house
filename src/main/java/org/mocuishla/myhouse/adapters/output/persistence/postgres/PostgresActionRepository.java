@@ -57,4 +57,9 @@ public class PostgresActionRepository implements ActionRepository {
                         actionEntity.getHumidity()))
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<Action> getAllActionsByTemperature(double temperature) {
+        return null;
+    }
 }

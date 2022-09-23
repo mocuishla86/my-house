@@ -45,4 +45,8 @@ public class House {
     public List<Action> getAllActionsByType(ActionType actionType) {
         return actionRepository.getAllActionsByType(actionType);
     }
+
+    public List<Action> getAllActionsByTemperature(double temperature) {
+        return actionRepository.getAllActionsByTemperature(temperature);
+    }
 }

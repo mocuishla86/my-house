@@ -11,4 +11,6 @@ public interface ActionRepository {
     List<Action> getAllActions();
 
     List<Action> getAllActionsByType(ActionType actionType);
+
+    List<Action> getAllActionsByTemperature(double temperature);
 }

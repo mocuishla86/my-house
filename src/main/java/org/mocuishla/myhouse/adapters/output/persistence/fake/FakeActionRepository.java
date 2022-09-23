@@ -25,4 +25,9 @@ public class FakeActionRepository implements ActionRepository {
     public List<Action> getAllActionsByType(ActionType actionType) {
         return null;
     }
+
+    @Override
+    public List<Action> getAllActionsByTemperature(double temperature) {
+        return null;
+    }
 }
