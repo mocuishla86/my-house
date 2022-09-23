@@ -60,6 +60,16 @@ public class PostgresActionRepository implements ActionRepository {
 
     @Override
     public List<Action> getAllActionsByTemperature(double temperature) {
-        return null;
+        var iterable = jpaActionRepository.findByTemperature(temperature);
+
+        return StreamSupport
+                .stream(iterable.spliterator(), false)
+                .map(actionEntity -> new Action(
+                        actionEntity.getId(),
+                        actionEntity.getTimestamp(),
+                        ActionType.valueOf(actionEntity.getType()),
+                        actionEntity.getTemperature(),
+                        actionEntity.getHumidity()))
+                .collect(Collectors.toList());
     }
 }

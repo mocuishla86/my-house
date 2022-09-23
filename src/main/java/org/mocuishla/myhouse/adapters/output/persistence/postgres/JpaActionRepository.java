@@ -7,4 +7,6 @@ import java.util.UUID;
 
 public interface JpaActionRepository extends CrudRepository<ActionEntity, UUID> {
  List<ActionEntity> findByType(String actionType);
+
+ List<ActionEntity> findByTemperature(double temperature);
 }
