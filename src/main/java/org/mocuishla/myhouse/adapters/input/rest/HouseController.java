@@ -33,4 +33,9 @@ public class HouseController {
         }
         return house.getAllActionsByType(actionType);
     }
+
+    @GetMapping("/temperature")
+    public List<Action> getActionsByTemperature(@RequestParam(required = false) double temperature) {
+        return house.getAllActionsByTemperature(temperature);
+    }
 }
