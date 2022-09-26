@@ -6,6 +6,7 @@ import org.mocuishla.myhouse.domain.business.model.ActionType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class HouseController {
@@ -27,15 +28,15 @@ public class HouseController {
     }
 
     @GetMapping("/actions")
-    public List<Action> getActionsByType(@RequestParam(required = false) ActionType actionType) {
-        if (actionType == null) {
-            return house.getAllActions();
+    public List<Action> getActionsByType(@RequestParam(required = false) ActionType actionType, @RequestParam(required = false) Optional<Double> temperature) {
+        if (actionType != null) {
+            return house.getAllActionsByType(actionType);
         }
-        return house.getAllActionsByType(actionType);
+        if (temperature.isPresent()) {
+            return house.getAllActionsByTemperature(temperature.get());
+        }
+
+        return house.getAllActions();
     }
 
-    @GetMapping("/temperature")
-    public List<Action> getActionsByTemperature(@RequestParam(required = false) double temperature) {
-        return house.getAllActionsByTemperature(temperature);
-    }
 }

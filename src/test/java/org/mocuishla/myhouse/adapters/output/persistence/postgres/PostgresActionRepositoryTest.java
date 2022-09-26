@@ -59,8 +59,10 @@ class PostgresActionRepositoryTest {
     void shouldSaveActionByTemperature() {
         PostgresActionRepository sut = new PostgresActionRepository(jpaActionRepository);
         Action action = new Action(LocalDateTime.now(), ActionType.TurnFreshAirOn, 44, 34);
+        Action action2 = new Action(LocalDateTime.now(), ActionType.TurnFreshAirOn, 56, 34);
 
         sut.saveAction(action);
+        sut.saveAction(action2);
 
         List<Action> actions = sut.getAllActionsByTemperature(44);
 
@@ -70,7 +72,8 @@ class PostgresActionRepositoryTest {
                         && actionInList.getTemperature() == 44
                         && actionInList.getHumidity() == 34
                         && actionInList.getType().equals(ActionType.TurnFreshAirOn));
-
+        assertThat(actions).allMatch(actionInList ->
+                actionInList.getTemperature() == 44);
     }
 
 }

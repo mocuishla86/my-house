@@ -154,7 +154,7 @@ class HouseControllerTest {
                 )
         ));
 
-        ResultActions result = mockMvc.perform(get("/temperature?temperature=37")
+        ResultActions result = mockMvc.perform(get("/actions?temperature=37")
                 .accept(MediaType.APPLICATION_JSON));
 
         result.andExpect(status().isOk())
