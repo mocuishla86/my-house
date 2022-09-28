@@ -6,6 +6,7 @@ import org.mocuishla.myhouse.domain.ports.ActionRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 public class PostgresActionRepository implements ActionRepository {
@@ -30,40 +31,30 @@ public class PostgresActionRepository implements ActionRepository {
     @Override
     public List<Action> getAllActions() {
         var iterable = jpaActionRepository.findAll();
+        Stream<ActionEntity> actionEntityStream = StreamSupport.stream(iterable.spliterator(), false);
 
-        return StreamSupport
-                .stream(iterable.spliterator(), false)
-                .map(actionEntity -> new Action(
-                        actionEntity.getId(),
-                        actionEntity.getTimestamp(),
-                        ActionType.valueOf(actionEntity.getType()),
-                        actionEntity.getTemperature(),
-                        actionEntity.getHumidity()))
-                .collect(Collectors.toList());
+        return toDomainActionList(actionEntityStream);
 
     }
 
     @Override
     public List<Action> getAllActionsByType(ActionType actionType) {
-        var iterable = jpaActionRepository.findByType(actionType.name());
+        var actionEntities = jpaActionRepository.findByType(actionType.name());
+        Stream<ActionEntity> actionEntityStream = actionEntities.stream();
 
-        return StreamSupport
-                .stream(iterable.spliterator(), false)
-                .map(actionEntity -> new Action(
-                        actionEntity.getId(),
-                        actionEntity.getTimestamp(),
-                        ActionType.valueOf(actionEntity.getType()),
-                        actionEntity.getTemperature(),
-                        actionEntity.getHumidity()))
-                .collect(Collectors.toList());
+        return toDomainActionList(actionEntityStream);
     }
 
     @Override
     public List<Action> getAllActionsByTemperature(double temperature) {
-        var iterable = jpaActionRepository.findByTemperature(temperature);
+        var actionEntities = jpaActionRepository.findByTemperature(temperature);
+        Stream<ActionEntity> stream = actionEntities.stream();
 
-        return StreamSupport
-                .stream(iterable.spliterator(), false)
+        return toDomainActionList(stream);
+    }
+
+    private static List<Action> toDomainActionList(Stream<ActionEntity> actionEntityStream) {
+        return actionEntityStream
                 .map(actionEntity -> new Action(
                         actionEntity.getId(),
                         actionEntity.getTimestamp(),
@@ -72,4 +63,5 @@ public class PostgresActionRepository implements ActionRepository {
                         actionEntity.getHumidity()))
                 .collect(Collectors.toList());
     }
+
 }
