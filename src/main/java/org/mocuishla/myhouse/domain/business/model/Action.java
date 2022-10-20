@@ -1,9 +1,12 @@
 package org.mocuishla.myhouse.domain.business.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class Action {
+    @JsonFormat(shape = JsonFormat.Shape.STRING) //TODO: This should not be on the domain. Create ActionDTO?
     private LocalDateTime timestamp;
     private ActionType type;
     private double temperature;
