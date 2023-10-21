@@ -32,7 +32,7 @@ public class MockitoTest {
     public void green() {
         BannerService bannerServiceMock = mock(BannerService.class);
 
-        bannerServiceMock.writeMessage("adios");
+        bannerServiceMock.writeMessage("hola");
 
         verify(bannerServiceMock).writeMessage("hola");
 
