@@ -13,8 +13,15 @@ public class FakeAirConditioner implements AirConditioner {
         HumidifierOff,
     }
 
+    public enum LedStatus {
+        LedOn,
+        LedOff,
+    }
+
     private AirStatus airStatus;
     private HumidifierStatus humidifierStatus;
+
+    private LedStatus ledStatus;
 
     @Override
     public void switchOnFreshAir() {
@@ -22,6 +29,8 @@ public class FakeAirConditioner implements AirConditioner {
             throw new RuntimeException("Overheating");
         }
         this.airStatus = AirStatus.AirOn;
+        switchOnLed();
+
     }
 
     @Override
@@ -56,5 +65,15 @@ public class FakeAirConditioner implements AirConditioner {
     @Override
     public boolean isHumidifierOn() {
         return humidifierStatus == HumidifierStatus.HumidifierOn;
+    }
+
+    @Override
+    public boolean isLedOn() {
+        return ledStatus == LedStatus.LedOn;
+    }
+
+    @Override
+    public void switchOnLed() {
+        this.ledStatus = LedStatus.LedOn;
     }
 }

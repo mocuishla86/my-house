@@ -12,4 +12,8 @@ public interface AirConditioner {
     boolean isFreshAirOn();
 
     boolean isHumidifierOn();
+
+    boolean isLedOn();
+
+    void switchOnLed();
 }
