@@ -16,4 +16,6 @@ public interface AirConditioner {
     boolean isLedOn();
 
     void switchOnLed();
+
+    void switchOffLed();
 }

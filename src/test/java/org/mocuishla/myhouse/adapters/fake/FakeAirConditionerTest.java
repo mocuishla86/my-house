@@ -122,4 +122,17 @@ class FakeAirConditionerTest {
         assertThat(sut.isFreshAirOn()).isTrue();
         assertThat(sut.isLedOn()).isTrue();
     }
+
+    @Test
+    public void ShouldLedSwitchOffWhenAirConditionerIsSwitchedOn() {
+        FakeAirConditioner sut = new FakeAirConditioner();
+
+        sut.switchOnFreshAir();
+        sut.switchOnLed();
+        sut.switchOffFreshAir();
+        sut.switchOffLed();
+
+        assertThat(sut.isFreshAirOn()).isFalse();
+        assertThat(sut.isLedOn()).isFalse();
+    }
 }
