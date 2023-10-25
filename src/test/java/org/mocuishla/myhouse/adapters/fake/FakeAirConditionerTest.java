@@ -100,39 +100,30 @@ class FakeAirConditionerTest {
     }
 
     @Test
-    public void shouldLedStayOffWhenAirConditionerIsSwitchedOff() {
+    public void shouldHaveLedOffAtTheBeginning() {
         FakeAirConditioner sut = new FakeAirConditioner();
 
-        boolean actualFreshAirIsOn = sut.isFreshAirOn();
-        boolean actualHumidityIsOn = sut.isHumidifierOn();
         boolean ledIsOn = sut.isLedOn();
 
-        assertThat(actualFreshAirIsOn).isFalse();
-        assertThat(actualHumidityIsOn).isFalse();
         assertThat(ledIsOn).isFalse();
     }
 
     @Test
-    public void ShouldLedSwitchOnWhenAirConditionerIsSwitchedOn() {
+    public void shouldSwitchOnLedWhenAirConditionerIsSwitchedOn() {
         FakeAirConditioner sut = new FakeAirConditioner();
 
         sut.switchOnFreshAir();
-        sut.switchOnLed();
 
-        assertThat(sut.isFreshAirOn()).isTrue();
         assertThat(sut.isLedOn()).isTrue();
     }
 
     @Test
-    public void ShouldLedSwitchOffWhenAirConditionerIsSwitchedOn() {
+    public void shouldSwitchOffLedWhenAirConditionerIsSwitchedOff() {
         FakeAirConditioner sut = new FakeAirConditioner();
 
         sut.switchOnFreshAir();
-        sut.switchOnLed();
         sut.switchOffFreshAir();
-        sut.switchOffLed();
 
-        assertThat(sut.isFreshAirOn()).isFalse();
         assertThat(sut.isLedOn()).isFalse();
     }
 }

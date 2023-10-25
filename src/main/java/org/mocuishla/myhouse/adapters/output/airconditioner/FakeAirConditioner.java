@@ -29,7 +29,7 @@ public class FakeAirConditioner implements AirConditioner {
             throw new RuntimeException("Overheating");
         }
         this.airStatus = AirStatus.AirOn;
-        switchOnLed();
+        this.ledStatus = LedStatus.LedOn;
 
     }
 
@@ -39,7 +39,7 @@ public class FakeAirConditioner implements AirConditioner {
             throw new RuntimeException("Already off");
         }
         this.airStatus = AirStatus.AirOff;
-        switchOffLed();
+        this.ledStatus = LedStatus.LedOff;
     }
 
     @Override
@@ -73,13 +73,4 @@ public class FakeAirConditioner implements AirConditioner {
         return ledStatus == LedStatus.LedOn;
     }
 
-    @Override
-    public void switchOnLed() {
-        this.ledStatus = LedStatus.LedOn;
-    }
-
-    @Override
-    public void switchOffLed() {
-        this.ledStatus = LedStatus.LedOff;
-    }
 }
