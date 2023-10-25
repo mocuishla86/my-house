@@ -13,6 +13,4 @@ public interface AirConditioner {
 
     boolean isHumidifierOn();
 
-    boolean isLedOn();
-
 }

@@ -68,7 +68,6 @@ public class FakeAirConditioner implements AirConditioner {
         return humidifierStatus == HumidifierStatus.HumidifierOn;
     }
 
-    @Override
     public boolean isLedOn() {
         return ledStatus == LedStatus.LedOn;
     }
